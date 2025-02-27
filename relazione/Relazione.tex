@@ -1,0 +1,93 @@
+\documentclass[12pt]{article}
+\usepackage{titling}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{helvet}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage{framed}
+\usepackage{listings}
+\usepackage{mdframed}
+\usepackage{sectsty}
+\usepackage{tikz}
+\newcommand{\abs}[1]{\left|#1\right|}
+
+\renewcommand{\lstlistingname}{}
+
+% Define font size and family for sections
+\sectionfont{\fontsize{10}{12}\selectfont\renewcommand{\familydefault}{\sfdefault}}
+\subsectionfont{\fontsize{10}{12}\selectfont\renewcommand{\familydefault}{\sfdefault}}
+\subsubsectionfont{\fontsize{10}{12}\selectfont\renewcommand{\familydefault}{\sfdefault}}
+\paragraphfont{\fontsize{10}{12}\selectfont\renewcommand{\familydefault}{\sfdefault}}
+\subparagraphfont{\fontsize{10}{12}\selectfont\renewcommand{\familydefault}{\sfdefault}}
+\renewcommand{\familydefault}{\rmdefault} % Reset default to Roman for title page
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{hyperref}
+
+\lstset{
+    language=Matlab,
+    basicstyle=\ttfamily\footnotesize,
+    keywordstyle=\color{blue},
+    commentstyle=\color{green},
+    stringstyle=\color{red},
+    frame=single,
+    breaklines=true,
+    keepspaces=true,
+    showspaces=false,
+    showstringspaces=false
+}
+
+
+\begin{document}
+
+% Prima pagina
+\begin{titlepage}
+    \centering
+    {\Huge \textbf{Università degli Studi di Padova} \par}
+    \vspace{1cm}
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.5\textwidth]{Immagini/Logo_Università_Padova.png}
+    \end{figure}
+    \vspace{0.5cm}
+    {\LARGE \textbf{Relazione per:} \par}
+    {\Huge Ricerca Operativa \par}
+    \vspace{0.5cm}
+    {\Large \textit{\textbf{Per Simulare una:}} \par}
+    {\Large Sessioni di sviluppo e formazione per un Azienda di videogiochi \par}
+    \vfill
+    \textbf{Realizzata da:} \par
+    Gabriele Di Pietro, matricola 2010000 \par
+    \vspace{0.5cm}
+    \textbf{GitHub Repository:} \par
+    \texttt{\url{https://github.com/SerpenTaki/ProgettoRO-2025}}
+\end{titlepage}
+    % Change font and size for the rest of the document
+    \renewcommand{\familydefault}{\sfdefault} % Set default to sans serif
+    \fontsize{10}{12}\selectfont
+    % Pagina introduzione
+    \newpage
+    \section{Introduzione}
+    \subsection{Abstract}
+    Un'azienda videoludica organizza sessioni di sviluppo e formazione per il proprio team e per sviluppatori esterni. L'obiettivo del progetto è massimizzare il guadagno ricavato dalle sessioni, minimizzando i costi del personale qualificato.
+    Di seguito viene esposta la soluzione del problema in forma generale. Successivamente si propone un modello matematico indipendente dai dati, al fine di calcolare le soluzioni ottime di due scenari alternativi.
+    \subsection{Descrizione del problema}
+    Durante ogni giorno lavorativo della settimana, l'azienda organizza sessioni di sviluppo e formazione in determinate fasce orarie. L'azienda offre corsi su vari aspetti della produzione videoludica, tra cui programmazione, game design e grafica. L'organizzazione settimanale delle sessioni è sempre la stessa ogni settimana.\\
+    Per poter essere svolta, ogni sessione necessita di un esperto che la conduca. Un esperto può seguire un numero massimo di sessioni contemporaneamente, purché siano della stessa tipologia (programmazione, game design o grafica).\\
+    Esiste anche una sessione avanzata per sviluppatori senior, della durata di 2 ore, che deve essere seguita dallo stesso esperto dedicato interamente a loro durante lo svolgimento della sessione in una giornata. Nel fine settimana, si possono organizzare sessioni speciali su progetti live, che devono essere seguite dallo stesso esperto per tutto il tempo.\\
+    Si vuole massimizzare il guadagno derivato dalle sessioni, sapendo che:
+    \begin{itemize}
+        \item Un esperto ha un certo costo orario;
+        \item Un esperto ha un numero massimo di ore settimanali che può mettere a disposizione;
+        \item Lo svolgimento di una sessione di programmazione porta un determinato guadagno;
+        \item Lo svolgimento di una sessione di game design porta un guadagno differente;
+        \item Lo svolgimento di una sessione di grafica porta un altro tipo di guadagno;
+        \item Le sessioni avanzate devono essere svolte almeno un certo numero di giorni alla settimana;
+        \item Le sessioni avanzate vengono svolte in una certa fascia oraria, identica per ogni giorno della settimana in cui si tengono;
+        \item Lo svolgimento delle 2 ore di una sessione avanzata porta un determinato tipo di guadagno;
+        \item Le sessioni speciali del fine settimana hanno un determinato numero di ore;
+        \item Le sessioni speciali, se svolte, portano un determinato guadagno.
+    \end{itemize}
+\end{document}
