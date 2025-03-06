@@ -90,4 +90,43 @@
         \item Le sessioni speciali del fine settimana hanno un determinato numero di ore;
         \item Le sessioni speciali, se svolte, portano un determinato guadagno.
     \end{itemize}
+    \section{Modello}
+    \subsection{Insiemi}
+    \begin{itemize}
+        \item $G$: insieme dei giorni lavorativi della settimana.
+        \item $S$: insieme delle tipologie di sessioni (\textit{Programmazione, Game Design, Grafica}).
+        \item $E$: insieme degli esperti disponibili.
+        \item $A$: insieme delle sessioni avanzate.
+        \item $W$: insieme delle sessioni speciali nel fine settimana.
+    \end{itemize}
+    \subsection{Parametri}
+    \begin{itemize}
+        \item $c_{e}$: costo orario dell'esperto $e \in E$.
+        \item $h_{e}$: numero massimo di ore settimanali che l'esperto $e$ può mettere a disposizione.
+        \item $g_{s}$: guadagno derivato dalla sessione di tipo $s \in S$.
+        \item $g_{a}$: guadagno derivato dalla sessione avanzata.
+        \item $g_{w}$: guadagno derivato dalla sessione speciale del fine settimana.
+        \item $d_{a}$: numero minimo di giorni alla settimana in cui le sessioni avanzate devono essere svolte.
+        \item $h_{w}$: numero di ore per una sessione speciale nel fine settimana.
+        \item $t_{a}$: durata della sessione avanzata \textit{(2 ore)}.
+    \end{itemize}
+    \subsection{Variabili Decisionali}
+    \begin{itemize}
+        \item $x_{s,g,e} \in \{0,1\}$: vale 1 se l'esperto $e$ segue la sessione di tipo $s$ nel giorno $g \in G$, 0 altrimenti.
+        \item $y_{a,g,e} \in \{0,1\}$: vale 1 se l'esperto $e$ segue la sessione avanzata nel giorno $g$, 0 altrimenti.
+        \item $z_{w,e} \in \{0,1\}$: vale 1 se l'esperto $e$ segue la sessione speciale nel fine settimana, 0 altrimenti.
+    \end{itemize}
+    \subsection{Funzione Obiettivo}
+    L'obiettivo è quello di \textbf{massimizzare} il guadagno netto, calcolato come la differenza tra i guadagni derivati dalle sessioni e i costi degli esperti:
+    \begin{equation}
+        \max \sum_{g \in G}\sum_{s \in S}\sum_{e \in E} g_s \cdot x_{s,g,e} + \sum_{g \in G}\sum_{e \in E} g_a \cdot y_{a,g,e} + \sum_{e \in E} g_w \cdot z_{w,e} - \sum_{e \in E} c_e \cdot h_e
+    \end{equation}
+    dove:
+    \begin{itemize}
+        \item $x_{s,g,e}$: indica se l'espertp $e$ tiene una sessione di tipo $s$ nel giorno $g$.
+        \item $y_{a,g,e}$: indica se l'esperto $e$ tiene una sessione avanzata nel giorno $g$.
+        \item $z_{w,e}$: indica se l'esperto $e$ tiene una sessione speciale nel fine settimana.
+        \item $h_e$: numero di ore settimanali che l'esperto $e$ ha effettuato.
+    \end{itemize}
+    
 \end{document}
