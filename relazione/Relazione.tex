@@ -75,7 +75,7 @@
     \subsection{Descrizione del problema}
     Durante ogni giorno lavorativo della settimana, l'azienda organizza sessioni di sviluppo e formazione in determinate fasce orarie. L'azienda offre corsi su vari aspetti della produzione videoludica, tra cui programmazione, game design e grafica. L'organizzazione settimanale delle sessioni è sempre la stessa ogni settimana.\\
     Per poter essere svolta, ogni sessione necessita di un esperto che la conduca. Un esperto può seguire un numero massimo di sessioni contemporaneamente, purché siano della stessa tipologia (programmazione, game design o grafica). Questo significa che se due sessioni di programmazione si svolgono nella stessa fascia oraria un esperto può gestirle entrambe, mentre se ad esempio una sessione di programmazione e di grafica si sovrappongono, dovranno essere assegnate a esperti diversi.\\
-    Esiste anche una sessione avanzata per sviluppatori senior, della durata di 2 ore, che deve essere seguita dallo stesso esperto dedicato interamente a loro durante lo svolgimento della sessione in una giornata. Nel fine settimana, si possono organizzare sessioni speciali su progetti live, che devono essere seguite dallo stesso esperto per tutto il tempo.\\
+    Esiste anche una sessione avanzata per sviluppatori senior, della durata di 4 ore, che deve essere seguita dallo stesso esperto dedicato interamente a loro durante lo svolgimento della sessione in una giornata. Nel fine settimana, si possono organizzare sessioni speciali su progetti live, che devono essere seguite dallo stesso esperto per tutto il tempo.\\
     Si vuole massimizzare il guadagno derivato dalle sessioni, sapendo che:
     \begin{itemize}
         \item Un esperto ha un certo costo orario;
@@ -85,112 +85,58 @@
         \item Lo svolgimento di una sessione di grafica porta un altro tipo di guadagno;
         \item Per assicurare una formazione costante e strutturata agli sviluppatori senior, le sessioni avanzate devono essere svolte almeno un determinato numero di giorni alla settimana;
         \item Le sessioni avanzate vengono svolte in una certa fascia oraria, identica per ogni giorno della settimana in cui si tengono;
-        \item Lo svolgimento delle 2 ore di una sessione avanzata porta un determinato tipo di guadagno;
+        \item Lo svolgimento delle 4 ore di una sessione avanzata porta un determinato tipo di guadagno;
         \item Le sessioni speciali del fine settimana hanno un determinato numero di ore;
         \item Le sessioni speciali, se svolte, portano un determinato guadagno.
     \end{itemize}
     \section{Modello}
     \subsection{Insiemi}
     \begin{itemize}
-        \item $G$: insieme dei giorni lavorativi della settimana.
-        \item $S$: insieme delle tipologie di sessioni (\textit{Programmazione, Game Design, Grafica}).
-        \item $E$: insieme degli esperti disponibili.
-        \item $A$: insieme delle sessioni avanzate.
-        \item $W$: insieme delle sessioni speciali nel fine settimana.
-        \item $H$: insieme delle fasce orarie disponibili per le sessioni.
-        \item $H_a \subseteq H$: insieme delle fasce orarie disponibili per le sessioni avanzate.
-        \item $G_a \subseteq G$: insieme dei giorni in cui le sessioni avanzate devono essere svolte.
+        \item $G$: Insieme dei giorni lavorativi della settimana;
+        \item $H$: Insieme delle fasce orarie in cui si svolgono le sessioni;
+        \item $E$: Insieme degli esperti;
     \end{itemize}
     \subsection{Parametri}
     \begin{itemize}
-        \item $c_{e}$: costo orario dell'esperto $e \in E$.
-        \item $h_{e}$: numero massimo di ore settimanali che l'esperto $e$ può mettere a disposizione.
-        \item $g_{s}$: guadagno derivato dalla sessione di tipo $s \in S$.
-        \item $g_{a}$: guadagno derivato dalla sessione avanzata.
-        \item $g_{w}$: guadagno derivato dalla sessione speciale del fine settimana.
-        \item $d_{a}$: numero minimo di giorni alla settimana in cui le sessioni avanzate devono essere svolte.
-        \item $h_{w}$: numero di ore per una sessione speciale nel fine settimana.
-        \item $t_{a}$: durata della sessione avanzata \textit{(2 ore)}.
-        \item $t_{s}$: durata della sessione di tipo $s$.
-        \item $C_{max}$: budget massimo disponibile per gli esperti.
+        \item $maxSessioni_e$: Numero massimo di sessioni che un esperto può seguire contemporaneamente $e \in E$;
+        \item $C_e$: Costo orario di un esperto;
+        \item $maxOreSettimanali$: Numero massimo di ore settimanali che un esperto può mettere a disposizione;
+        \item $Programmazione_{g,o}$: Sessione individuale di programmazione che si svolge il giorno $g \in G$ nella fascia oraria $h \in H$;
+        \item $GameDesign_{g,o}$: Sessione individuale di game design che si svolge il giorno $g \in G$ nella fascia oraria $h \in H$;
+        \item $Grafica_{g,o}$: Sessione individuale di grafica che si svolge il giorno $g \in G$ nella fascia oraria $h \in H$;
+        \item $guadagnoProgrammazione$: Guadagno derivato dallo svolgimento di una sessione di programmazione;
+        \item $guadagnoGameDesign$: Guadagno derivato dallo svolgimento di una sessione di game design;
+        \item $guadagnoGrafica$: Guadagno derivato dallo svolgimento di una sessione di grafica;
+        \item $minSessioniAvanzate$: Numero minimo di sessioni avanzate che devono essere svolte alla settimana;
+        \item $orarioSessioneAvanzata$: Fascia oraria in cui si svolgono le sessioni avanzate;
+        \item $guadagnoSessioneAvanzata$: Guadagno derivato dallo svolgimento di una sessione avanzata;
+        \item $oreSessioneSpeciale$: Numero di ore di una sessione speciale;
+        \item $guadagnoSessioneSpeciale$: Guadagno derivato dallo svolgimento di una sessione speciale.
+        \item $M$: costante di grandi dimensioni.
     \end{itemize}
-    \subsection{Variabili Decisionali}
+   \subsection{Variabili decisionali}
+   \begin{itemize}
+    \item $p_{e,g,h}$: Variabile binaria che vale 1 se l'esperto $e \in E$ segue il corso di programmazione $g \in G$ il giorno $h \in H$;
+    \item $d_{e,g,h}$: Variabile binaria che vale 1 se l'esperto $e \in E$ segue il corso di game design $g \in G$ il giorno $h \in H$;
+    \item $r_{e,g,h}$: Variabile binaria che vale 1 se l'esperto $e \in E$ segue il corso di grafica $g \in G$ il giorno $h \in H$;
+    \item $t_g$: Variabile binaria che vale 1 se nel giorno $g \in G$ si tiene una sessione avanzata;
+    \item $a_{e,g}$: Variabile binaria che vale 1 se l'esperto $e \in E$ segue la sessione avanzata il giorno $g \in G$;
+    \item $s$: Variabile binaria che vale 1 se nel fine settimana si tiene una sessione speciale;
+    \item $b_{e}$: Variabile binaria che vale 1 se l'esperto $e \in E$ segue la sessione speciale.
+   \end{itemize}
+   \subsection{Funzione obiettivo}
+    $\max$ \textbf{Guadagno Programmazione} $+$ \textbf{Guadagno Game design} $+$ \textbf{Guadagno Grafica} $+$      \textbf{Guadagno Avanzata} $+$ \textbf{Guadagno Speciale} $-$ \textbf{Costo degli esperti}\\
+    \newline
+   dove i termini sono:\\
+    \textbf{Guadagno Programmazione}: $\sum_{g \in G, h \in H} Programmazione_{g,h} \cdot guadagnoProgrammazione$;\\ \\
+    \textbf{Guadagno Game design}: $\sum_{g \in G, h \in H} GameDesign_{g,h} \cdot guadagnoGameDesign$;\\ \\
+    \textbf{Guadagno Grafica}: $\sum_{g \in G, h \in H} Grafica_{g,h} \cdot guadagnoGrafica$;\\ \\
+    \textbf{Guadagno Avanzata}: $\sum_{g \in G} t_g \cdot guadagnoSessioneAvanzata$;\\ \\
+    \textbf{Guadagno Speciale}: $s \cdot guadagnoSessioneSpeciale$;\\ \\
+    \textbf{Costo degli esperti}:\\ $C_e \cdot ($ \textbf{Ore sessioni individuali} $+$ \textbf{Ore sessioni avanzate} $+$ \textbf{Ore sessioni speciali}$)$\\
     \begin{itemize}
-        \item $x_{s,g,e,h} \in \{0,1\}$: vale 1 se l'esperto $e$ segue la sessione di tipo $s$ nel giorno $g \in G$ e nella fascia oraria $h$, 0 altrimenti.
-        \item $y_{a,g,e} \in \{0,1\}$: vale 1 se l'esperto $e$ segue la sessione avanzata nel giorno $g$, 0 altrimenti.
-        \item $z_{w,e} \in \{0,1\}$: vale 1 se l'esperto $e$ segue la sessione speciale nel fine settimana, 0 altrimenti.
+        \item \textbf{Ore sessioni individuali}: $\sum_{e \in E, g \in G, h \in H} (p_{e,g,h} + d_{e,g,h} + r_{e,g,h})$;
+        \item \textbf{Ore sessioni avanzate}: $\sum_{e \in E, g \in G} a_{e,g} \cdot 4$;
+        \item \textbf{Ore sessioni speciali}: $\sum_{e \in E} b_{e} \cdot oreSessioneSpeciale$.
     \end{itemize}
-    \subsection{Funzione Obiettivo}
-    L'obiettivo è quello di \textbf{massimizzare} il guadagno netto, calcolato come la differenza tra i guadagni derivati dalle sessioni e i costi degli esperti:
-    \begin{equation}
-        \max \sum_{g \in G}\sum_{s \in S}\sum_{e \in E}\sum_{h \in H} g_s \cdot x_{s,g,e,h} + \sum_{g \in G}\sum_{e \in E} g_a \cdot y_{a,g,e} + \sum_{e \in E} g_w \cdot z_{w,e} - \sum_{e \in E} c_e \cdot h_e
-    \end{equation}
-    dove:
-    \begin{itemize}
-        \item $x_{s,g,e,h}$: indica se l'espertp $e$ tiene una sessione di tipo $s$ nel giorno $g$ e nella fascia oraria $h$.
-        \item $y_{a,g,e}$: indica se l'esperto $e$ tiene una sessione avanzata nel giorno $g$.
-        \item $z_{w,e}$: indica se l'esperto $e$ tiene una sessione speciale nel fine settimana.
-        \item $h_e$: numero di ore settimanali che l'esperto $e$ ha effettuato.
-    \end{itemize}
-    \subsubsection{Soggetto a}
-    \textbf{Limitazione delle ore settimanali per ogni esperto}\\
-    Ogni esperto non può superare il numero di ore settimanali disponibili:
-    \begin{equation}
-        \sum_{g \in G}\sum_{s \in S}\sum_{h \in H} t_s \cdot x_{e,s,g,h} + \sum_{g \in G} t_a \cdot y_{a,g,e} + h_w \cdot z_{w,e} \leq h_{e} \quad \forall e \in E
-    \end{equation}
-    dove:
-    \begin{itemize}
-        \item $t_s$: durata della sessione di tipo $s$.
-        \item $t_a$: durata della sessione avanzata (2 ore)
-        \item $h_w$: numero di ore per una sessione speciale nel fine settimana.
-        \item $h_e$: limite massimo di ore settimanali per l'esperto $e$.
-    \end{itemize}
-    \textbf{Un esperto non può condurre sessioni di tipo diverso contemporaneamente}\\
-    Un esperto non può tenere più sessioni contemporaneamente solo se appartengono alla stessa tipologia:
-    \begin{equation}
-        \sum_{s \in S} x_{e,s,g} \leq 1 \quad \forall e \in E, \forall g \in G
-    \end{equation}
-    \textbf{Sessioni avanzate obbligatorie per un minimo di giorni alla settimana}\\
-    Le sessioni avanzate devono essere svolte almeno un numero minimo di giorni alla settimana
-    \begin{equation}
-        \sum_{g \in G} \sum_{e \in E} y_{a,g,e} \geq d_a
-    \end{equation}
-    \textbf{Sessioni avanzate possono essere svolte solo in fasce orarie prestabilite}\\
-    Le sessioni avanzate possono essere svolte solo in determinate fasce orarie e in giorni specifici:
-    \begin{equation}
-        y_{a,g,e} = 0 \quad \forall e \in E, \forall g \in G, \forall h \notin H_a
-    \end{equation}
-    Dove:
-    \begin{itemize}
-        \item $H_a$: insieme delle fasce orarie disponibili per le sessioni avanzate.
-    \end{itemize}
-    \textbf{Sessioni speciali nel fine settimana con esperto dedicato}\\
-    Le sessioni speciali devono essere seguite dallo stesso esperto per tutta la loro durata:
-    \begin{equation}
-        \sum_{e \in E} z_{w,e} \leq 1
-    \end{equation}
-    \textbf{Budget massimo disponibile per gli esperti}\\
-    Il costo totale del personale qualificato deve essere calcolato sulla base delle ore lavorate:
-    \begin{equation}
-        \sum_{e \in E} c_e (\sum_{g \in G}\sum_{s \in S} t_s \cdot x_{e,s,g} + \sum_{g \in G} t_a \cdot y_{a,g,e} + h_w \cdot z_{w,e}) \leq C_{max}
-    \end{equation}
-    \subsubsection{Dominio}
-    \begin{equation}
-        x_{s,g,e,h} \in \{0,1\} \quad \forall s \in S, \forall g \in G, \forall e \in E, \forall h \in H
-    \end{equation}
-    \begin{equation}
-        y_{a,g,e} \in \{0,1\} \quad \forall g \in G, \forall e \in E
-    \end{equation}
-    \begin{equation}
-        z_{w,e} \in \{0,1\} \quad \forall e \in E
-    \end{equation}
-    \section{Implementazione}
-    \subsection{File .mod}
-    \subsection{File .run}
-    \section{Primo scenario}
-    \subsection{File .dat}
-    \subsection{Risultati}
-    \section{Secondo scenario}
-    \subsection{File .dat}
-    \subsection{Risultati}
 \end{document}
