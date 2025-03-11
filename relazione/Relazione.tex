@@ -15,11 +15,11 @@
 \renewcommand{\lstlistingname}{}
 
 % Define font size and family for sections
-\sectionfont{\fontsize{10}{12}\selectfont\renewcommand{\familydefault}{\sfdefault}}
-\subsectionfont{\fontsize{10}{12}\selectfont\renewcommand{\familydefault}{\sfdefault}}
-\subsubsectionfont{\fontsize{10}{12}\selectfont\renewcommand{\familydefault}{\sfdefault}}
-\paragraphfont{\fontsize{10}{12}\selectfont\renewcommand{\familydefault}{\sfdefault}}
-\subparagraphfont{\fontsize{10}{12}\selectfont\renewcommand{\familydefault}{\sfdefault}}
+\sectionfont{\fontsize{12}{14}\selectfont\renewcommand{\familydefault}{\sfdefault}}
+\subsectionfont{\fontsize{12}{14}\selectfont\renewcommand{\familydefault}{\sfdefault}}
+\subsubsectionfont{\fontsize{12}{14}\selectfont\renewcommand{\familydefault}{\sfdefault}}
+\paragraphfont{\fontsize{12}{14}\selectfont\renewcommand{\familydefault}{\sfdefault}}
+\subparagraphfont{\fontsize{12}{14}\selectfont\renewcommand{\familydefault}{\sfdefault}}
 \renewcommand{\familydefault}{\rmdefault} % Reset default to Roman for title page
 
 \usepackage[utf8]{inputenc}
@@ -127,16 +127,81 @@
    \subsection{Funzione obiettivo}
     $\max$ \textbf{Guadagno Programmazione} $+$ \textbf{Guadagno Game design} $+$ \textbf{Guadagno Grafica} $+$      \textbf{Guadagno Avanzata} $+$ \textbf{Guadagno Speciale} $-$ \textbf{Costo degli esperti}\\
     \newline
-   dove i termini sono:\\
+   dove i termini sono:\\ \\
     \textbf{Guadagno Programmazione}: $\sum_{g \in G, h \in H} Programmazione_{g,h} \cdot guadagnoProgrammazione$;\\ \\
     \textbf{Guadagno Game design}: $\sum_{g \in G, h \in H} GameDesign_{g,h} \cdot guadagnoGameDesign$;\\ \\
     \textbf{Guadagno Grafica}: $\sum_{g \in G, h \in H} Grafica_{g,h} \cdot guadagnoGrafica$;\\ \\
     \textbf{Guadagno Avanzata}: $\sum_{g \in G} t_g \cdot guadagnoSessioneAvanzata$;\\ \\
     \textbf{Guadagno Speciale}: $s \cdot guadagnoSessioneSpeciale$;\\ \\
-    \textbf{Costo degli esperti}:\\ $C_e \cdot ($ \textbf{Ore sessioni individuali} $+$ \textbf{Ore sessioni avanzate} $+$ \textbf{Ore sessioni speciali}$)$\\
+    \textbf{Costo degli esperti}:\\ $C_e \cdot ($ \textbf{Ore sessioni individuali} $+$ \textbf{Ore sessioni avanzate} $+$ \textbf{Ore sessioni speciali}$)$
     \begin{itemize}
         \item \textbf{Ore sessioni individuali}: $\sum_{e \in E, g \in G, h \in H} (p_{e,g,h} + d_{e,g,h} + r_{e,g,h})$;
         \item \textbf{Ore sessioni avanzate}: $\sum_{e \in E, g \in G} a_{e,g} \cdot 4$;
         \item \textbf{Ore sessioni speciali}: $\sum_{e \in E} b_{e} \cdot oreSessioneSpeciale$.
     \end{itemize}
+    \newpage
+    \textbf{S.T.}\\
+    \begin{itemize}
+        \item Ogni corso deve avere almeno un istrurre che lo segue:
+    \end{itemize}
+    \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} ll}
+        $\sum_{e \in E} p_{e,g,h} \cdot M \geq Programmazione_{g,h}$ & $\forall g \in G, \forall h \in H$ \\
+        & \\
+        $\sum_{e \in E} d_{e,g,h} \cdot M \geq GameDesign_{g,h}$ & $\forall g \in G, \forall h \in H$ \\
+        & \\
+        $\sum_{e \in E} r_{e,g,h} \cdot M \geq Grafica_{g,h}$ & $\forall g \in G, \forall h \in H$ \\
+        & \\   
+        $\sum_{e \in E} a_{e,g} \geq t_g$ & $\forall g \in G$ \\
+        & \\
+        $\sum_{e \in E} b_{e} \geq s$ & \\
+    \end{tabular*}
+    \begin{itemize}
+        \item Un esperto non può seguire più sessioni di tipo diverso contemporaneamente:
+    \end{itemize}
+    \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} ll}
+        $p_{e,g,h} + d_{e,g,h} + r_{e,g,h} \leq 1$ & $\forall e \in E, \forall g \in G, \forall h \in H$ \\
+    \end{tabular*}
+    \begin{itemize}
+        \item Un esperto può seguire un numero massimo di sessioni contemporaneamente:
+    \end{itemize}
+    \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} ll}
+        $\sum_{e \in E} p_{e,g,h} \geq \frac{Programmazione_{g,h}}{maxSessioni_e}$ & $\forall g \in G, \forall h \in H$ \\
+         & \\
+        $\sum_{e \in E} d_{e,g,h} \geq \frac{GameDesign_{g,h}}{maxSessioni_e}$ & $\forall g \in G, \forall h \in H$ \\
+            & \\
+        $\sum_{e \in E} r_{e,g,h} \geq \frac{Grafica_{g,h}}{maxSessioni_e}$ & $\forall g \in G, \forall h \in H$ \\
+    \end{tabular*}
+    \begin{itemize}
+        \item Un esperto può seguire un numero massimo di ore settimanali:
+    \end{itemize}
+    \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} ll}
+        $(\sum_{g \in G, h \in H} p_{e,g,h} + d_{e,g,h} + r_{e,g,h}) + (\sum_{g \in G}4 \cdot a_{e,g}) + b_e \cdot oreSessioneSpeciale$ & $\forall i \in I$ \\
+    \end{tabular*}
+    \begin{itemize}
+        \item Se un esperto segue una sessione avanzata deve seguire solo quello per tutte le 4 ore:
+    \end{itemize}
+    $p_{e,g,h} + p_{e,g,h+1} + p_{e,g,h+2} + p_{e,g,h+3} + d_{e,g,h} + d_{e,g,h+1} + d_{e,g,h+2} + d_{e,g,h+3}$ \newline $+ r_{e,g,h} + r_{e,g,h+1} + r_{e,g,h+2} + r_{e,g,h+3}$\\
+    \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} ll}
+        & $\forall e \in E, \forall g \in G, h = orarioSessioneAvanzata$ \\
+    \end{tabular*}
+    \begin{itemize}
+        \item Gli sviluppatori senior devono seguire almeno un certo numero di sessioni avanzate alla settimana:
+    \end{itemize}
+    \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} ll}
+        $\sum_{g \in G} t_g \geq minSessioniAvanzate$ & $\forall g \in G$ \\
+    \end{tabular*}
+    \\ \\ \\ \\
+    \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} ll}
+        \textbf{Dominio:} $p_{e,g,h},d_{e,g,h},r_{e,g,h},t_g,a_{e,g},s,b_e \in \{0,1\}$ & $\forall e \in E, \forall g \in G, \forall h \in H$ \\
+    \end{tabular*}
+    \newpage
+    \section{Implementazione}
+    \subsection{File .mod}
+    \subsection{File .run}
+    \section{Primo scenario}
+    \subsection{File .dat}
+    \subsection{Risultati}
+    \section{Secondo scenario}
+    \subsection{File .dat}
+    \subsection{Risultati}
 \end{document}
