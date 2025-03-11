@@ -123,11 +123,11 @@
     \subsection{Funzione Obiettivo}
     L'obiettivo è quello di \textbf{massimizzare} il guadagno netto, calcolato come la differenza tra i guadagni derivati dalle sessioni e i costi degli esperti:
     \begin{equation}
-        \max \sum_{g \in G}\sum_{s \in S}\sum_{e \in E} g_s \cdot x_{s,g,e} + \sum_{g \in G}\sum_{e \in E} g_a \cdot y_{a,g,e} + \sum_{e \in E} g_w \cdot z_{w,e} - \sum_{e \in E} c_e \cdot h_e
+        \max \sum_{g \in G}\sum_{s \in S}\sum_{e \in E}\sum_{h \in H} g_s \cdot x_{s,g,e,h} + \sum_{g \in G}\sum_{e \in E} g_a \cdot y_{a,g,e} + \sum_{e \in E} g_w \cdot z_{w,e} - \sum_{e \in E} c_e \cdot h_e
     \end{equation}
     dove:
     \begin{itemize}
-        \item $x_{s,g,e}$: indica se l'espertp $e$ tiene una sessione di tipo $s$ nel giorno $g$.
+        \item $x_{s,g,e,h}$: indica se l'espertp $e$ tiene una sessione di tipo $s$ nel giorno $g$ e nella fascia oraria $h$.
         \item $y_{a,g,e}$: indica se l'esperto $e$ tiene una sessione avanzata nel giorno $g$.
         \item $z_{w,e}$: indica se l'esperto $e$ tiene una sessione speciale nel fine settimana.
         \item $h_e$: numero di ore settimanali che l'esperto $e$ ha effettuato.
@@ -136,7 +136,7 @@
     \textbf{Limitazione delle ore settimanali per ogni esperto}\\
     Ogni esperto non può superare il numero di ore settimanali disponibili:
     \begin{equation}
-        \sum_{g \in G}\sum_{s \in S} t_s \cdot x_{e,s,g} + \sum_{g \in G} t_a \cdot y_{a,g,e} + h_w \cdot z_{w,e} \leq h_{e} \quad \forall e \in E
+        \sum_{g \in G}\sum_{s \in S}\sum_{h \in H} t_s \cdot x_{e,s,g,h} + \sum_{g \in G} t_a \cdot y_{a,g,e} + h_w \cdot z_{w,e} \leq h_{e} \quad \forall e \in E
     \end{equation}
     dove:
     \begin{itemize}
