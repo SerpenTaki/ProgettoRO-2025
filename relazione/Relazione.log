@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.10.25)  11 MAR 2025 22:49
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.10.25)  13 MAR 2025 16:42
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -666,98 +666,42 @@ LaTeX Font Info:    Trying to load font information for OT1+phv on input line 72
  (/usr/local/texlive/2024/texmf-dist/tex/latex/psnfss/ot1phv.fd
 File: ot1phv.fd 2020/03/25 scalable font definitions for OT1/phv.
 )
-LaTeX Font Info:    Trying to load font information for TS1+phv on input line 81.
- (/usr/local/texlive/2024/texmf-dist/tex/latex/psnfss/ts1phv.fd
+Underfull \hbox (badness 10000) in paragraph at lines 74--75
+
+ []
+
+LaTeX Font Info:    Trying to load font information for TS1+phv on input line 83.
+(/usr/local/texlive/2024/texmf-dist/tex/latex/psnfss/ts1phv.fd
 File: ts1phv.fd 2020/03/25 scalable font definitions for TS1/phv.
 )
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.96         \item $
-                    H$: Insieme delle fasce orarie in cui si svolgono le ses... [1{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/base/8r.enc}] [2]
-Overfull \hbox (0.5341pt too wide) in paragraph at lines 128--137
-$[]$ \OT1/cmr/bx/n/10 Guadagno Pro-gram-mazione $\OT1/cmr/m/n/10 +$ \OT1/cmr/bx/n/10 Guadagno Game de-sign $\OT1/cmr/m/n/10 +$ \OT1/cmr/bx/n/10 Guadagno Grafica
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 128--137
+l.102     \newpage
+                   [1{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/base/8r.enc}]
+Underfull \hbox (badness 10000) in paragraph at lines 103--104
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 128--137
-
- []
-
-
-Overfull \hbox (21.97215pt too wide) in paragraph at lines 128--137
-\OT1/cmr/bx/n/10 Guadagno Pro-gram-mazione\OT1/cmr/m/n/10 : $[][] \OML/cmm/m/it/10 Programmazione[] \OMS/cmsy/m/n/10 ^^A \OML/cmm/m/it/10 guadagnoProgrammazione$\OT1/cmr/m/n/10 ; 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 128--137
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 128--137
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 128--137
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 128--137
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 128--137
-
- []
-
-[3]
-Underfull \hbox (badness 10000) in paragraph at lines 143--144
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 190--197
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 190--197
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 190--197
-
- []
-
-[4] [5] (./Relazione.aux)
+[2] [3] (./Relazione.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 23823 strings out of 474116
- 442778 string characters out of 5743681
- 1939187 words of memory out of 5000000
- 45765 multiletter control sequences out of 15000+600000
+ 23820 strings out of 474116
+ 442758 string characters out of 5743681
+ 1933187 words of memory out of 5000000
+ 45764 multiletter control sequences out of 15000+600000
  572684 words of font info for 71 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 84i,9n,93p,572b,507s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb>
-Output written on Relazione.pdf (6 pages, 554239 bytes).
+ 84i,6n,93p,539b,478s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb>
+Output written on Relazione.pdf (4 pages, 472790 bytes).
 PDF statistics:
- 195 PDF objects out of 1000 (max. 8388607)
- 151 compressed objects within 2 object streams
- 24 named destinations out of 1000 (max. 500000)
+ 152 PDF objects out of 1000 (max. 8388607)
+ 124 compressed objects within 2 object streams
+ 22 named destinations out of 1000 (max. 500000)
  154 words of extra memory for PDF output out of 10000 (max. 10000000)
 
