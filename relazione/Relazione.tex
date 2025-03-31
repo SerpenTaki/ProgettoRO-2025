@@ -10,6 +10,7 @@
 \usepackage{mdframed}
 \usepackage{sectsty}
 \usepackage{tikz}
+\usepackage{amssymb}
 \newcommand{\abs}[1]{\left|#1\right|}
 
 \renewcommand{\lstlistingname}{}
@@ -24,6 +25,7 @@
 
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
+\usepackage{amssymb}
 \usepackage{hyperref}
 
 \lstset{
@@ -84,22 +86,55 @@
         \item Nei turni di riposo il mago ripristina il 20$\%$ di mana consumato;
         \item Nei turni di riposo il cavaliere ripristina il 30$\%$ di stamina consumata;
     \end{itemize}
+
     \section{Modello}
     \subsection{Insiemi}
     \begin{itemize}
-        \item 
+        \item $T$: Insieme dei turni possibili, con $t \in T \subseteq \mathbb{Z}^+$
+        \item $K$: Insieme dei cavalieri, con $k \in K \subseteq \mathbb{Z}^+$ e $k = \{ 0,1,2,3 \}$
+        \item $M$: Insieme dei maghi, con $m \in M \subseteq \mathbb{Z}^+$ e $m = 3- k$
     \end{itemize}
     \subsection{Parametri}
     \begin{itemize}
-        \item 
+        \item $PV_{Boss}$: punti vita del Boss
+        \item $DK$: danno che un cavaliere può infliggere
+        \item $DM$: danno che un mago può infliggere
+        \item $SKC$: consumo di stamina da parte di un cavaliere
+        \item $MMC$: consumo di mana da parte di un mago
     \end{itemize}
-   \subsection{Variabili decisionali}
+   \subsection{Variabili}
    \begin{itemize}
-    \item 
+    \item $S_t$: Stamina disponibile all'inizio del turno
+    \item $M_t$: Mana disponibile all'inizio del turno
+    \item $CS_{k,t}$: Stamina totale consumata dal cavaliere $k$ fino al turno $t$
+    \item $CM_{m,t}$: Mana totale consumato dal mago $m$ fino al turno $t$
+    \item $Boost_t$: Moltiplicatore di danno per i cavalieri (\textit{nel caso di riposo da parte del mago})
+    \item $DPT_t$: Danno per turno, quindi il danno totale inflitto dal \textit{party}\footnote{Insieme di cavalieri e maghi che compongono il team.} al turno $t$
    \end{itemize}
+   \subsubsection{Variabili decisionali}
+   \begin{itemize}
+    \item $x_{k,t} = \begin{cases} 
+        1 & \text{se il cavaliere } k \text{ attacca al turno } t \\ 
+        0 & \text{altrimenti} 
+    \end{cases}$
+    \item $y_{m,t} = \begin{cases} 
+        1 & \text{se il cavaliere } k \text{ usa 2 mani per attaccare } \\ 
+        0 & \text{altrimenti} 
+    \end{cases}$
+    \item $z_{m,t} = \begin{cases} 
+        1 & \text{se il mago } m \text{ attacca nel turno } t \\ 
+        0 & \text{altrimenti} 
+    \end{cases}$
+    \item $u_t = \begin{cases}
+        1 & \text{se il boss è stato sconfitto nel turno } t \\
+        0 & \text{altrimenti}
+    \end{cases}$
+    \end{itemize}
    \subsection{Funzione obiettivo}
-
-    \newpage
+    \begin{equation}
+        \min \sum_{t \in T} t \cdot u_t
+    \end{equation}
+    L'obiettivo è quello di trovare il turno minimo in cui il boss viene sconfitto quindi sommiamo tutti i turni ma solo quello dove
     \textbf{S.T.}\\
     \begin{itemize}
         \item 

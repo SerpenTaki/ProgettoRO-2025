@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.10.25)  13 MAR 2025 16:42
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.10.25)  31 MAR 2025 23:27
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -532,10 +532,20 @@ File: pgfmodulematrix.code.tex 2023-01-15 v3.1.10 (3.1.10)
 \tikz@expandcount=\count313
  (/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarytopaths.code.tex
 File: tikzlibrarytopaths.code.tex 2023-01-15 v3.1.10 (3.1.10)
-))) (/usr/local/texlive/2024/texmf-dist/tex/latex/base/inputenc.sty
+))) (/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+ (/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\@emptytoks=\toks31
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+)) (/usr/local/texlive/2024/texmf-dist/tex/latex/base/inputenc.sty
 Package: inputenc 2021/02/14 v1.3d Input encoding file
-\inpenc@prehook=\toks31
-\inpenc@posthook=\toks32
+\inpenc@prehook=\toks32
+\inpenc@posthook=\toks33
 ) (/usr/local/texlive/2024/texmf-dist/tex/latex/amsmath/amsmath.sty
 Package: amsmath 2023/05/13 v2.17o AMS math features
 \@mathmargin=\skip122
@@ -545,7 +555,7 @@ For additional information on amsmath, use the `?' option.
 Package: amstext 2021/08/26 v2.01 AMS text
  (/usr/local/texlive/2024/texmf-dist/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
-\@emptytoks=\toks33
+\@emptytoks=\toks34
 \ex@=\dimen269
 )) (/usr/local/texlive/2024/texmf-dist/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
@@ -583,21 +593,21 @@ LaTeX Info: Redefining \Relbar on input line 971.
 \dotsspace@=\muskip17
 \c@parentequation=\count321
 \dspbrk@lvl=\count322
-\tag@help=\toks34
+\tag@help=\toks35
 \row@=\count323
 \column@=\count324
 \maxfields@=\count325
-\andhelp@=\toks35
+\andhelp@=\toks36
 \eqnshift@=\dimen272
 \alignsep@=\dimen273
 \tagshift@=\dimen274
 \tagwidth@=\dimen275
 \totwidth@=\dimen276
 \lineht@=\dimen277
-\@envbody=\toks36
+\@envbody=\toks37
 \multlinegap=\skip123
 \multlinetaggap=\skip124
-\mathdisplay@stack=\toks37
+\mathdisplay@stack=\toks38
 LaTeX Info: Redefining \[ on input line 2953.
 LaTeX Info: Redefining \] on input line 2954.
 ) (/usr/local/texlive/2024/texmf-dist/tex/latex/listings/lstlang1.sty
@@ -605,24 +615,24 @@ File: lstlang1.sty 2024/02/21 1.10 listings language file
 ) (./Relazione.aux)
 \openout1 = `Relazione.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 43.
-LaTeX Font Info:    ... okay on input line 43.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 43.
-LaTeX Font Info:    ... okay on input line 43.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 43.
-LaTeX Font Info:    ... okay on input line 43.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 43.
-LaTeX Font Info:    ... okay on input line 43.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 43.
-LaTeX Font Info:    ... okay on input line 43.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 43.
-LaTeX Font Info:    ... okay on input line 43.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 43.
-LaTeX Font Info:    ... okay on input line 43.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 43.
-LaTeX Font Info:    ... okay on input line 43.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 43.
-LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
  (/usr/local/texlive/2024/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count326
@@ -630,12 +640,12 @@ LaTeX Font Info:    ... okay on input line 43.
 \scratchbox=\box72
 \nofMPsegments=\count327
 \nofMParguments=\count328
-\everyMPshowfont=\toks38
+\everyMPshowfont=\toks39
 \MPscratchCnt=\count329
 \MPscratchDim=\dimen279
 \MPnumerator=\count330
 \makeMPintoPDFobject=\count331
-\everyMPtoPDFconversion=\toks39
+\everyMPtoPDFconversion=\toks40
 ) (/usr/local/texlive/2024/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
  (/usr/local/texlive/2024/texmf-dist/tex/latex/grfext/grfext.sty
@@ -652,34 +662,41 @@ Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hyperref package is loaded.
 Package caption Info: listings package is loaded.
 Package caption Info: End \AtBeginDocument code.
-Package hyperref Info: Link coloring OFF on input line 43.
+Package hyperref Info: Link coloring OFF on input line 45.
 \c@lstlisting=\count332
 <Immagini/Logo_Università_Padova.png, id=7, 1204.5pt x 1204.5pt>
 File: Immagini/Logo_Università_Padova.png Graphic file (type png)
 <use Immagini/Logo_Università_Padova.png>
-Package pdftex.def Info: Immagini/Logo_Università_Padova.png  used on input line 52.
+Package pdftex.def Info: Immagini/Logo_Università_Padova.png  used on input line 54.
 (pdftex.def)             Requested size: 195.0pt x 194.98457pt.
- [1
+LaTeX Font Info:    Trying to load font information for U+msa on input line 67.
+ (/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 67.
+ (/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+) [1
 
 {/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <./Immagini/Logo_Università_Padova.png>]
-LaTeX Font Info:    Trying to load font information for OT1+phv on input line 72.
+LaTeX Font Info:    Trying to load font information for OT1+phv on input line 74.
  (/usr/local/texlive/2024/texmf-dist/tex/latex/psnfss/ot1phv.fd
 File: ot1phv.fd 2020/03/25 scalable font definitions for OT1/phv.
 )
-Underfull \hbox (badness 10000) in paragraph at lines 74--75
+Underfull \hbox (badness 10000) in paragraph at lines 76--77
 
  []
 
-LaTeX Font Info:    Trying to load font information for TS1+phv on input line 83.
+LaTeX Font Info:    Trying to load font information for TS1+phv on input line 85.
 (/usr/local/texlive/2024/texmf-dist/tex/latex/psnfss/ts1phv.fd
 File: ts1phv.fd 2020/03/25 scalable font definitions for TS1/phv.
 )
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.102     \newpage
-                   [1{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/base/8r.enc}]
-Underfull \hbox (badness 10000) in paragraph at lines 103--104
+l.104     \end{itemize}
+                        [1{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/base/8r.enc}]
+Underfull \hbox (badness 10000) in paragraph at lines 136--139
 
  []
 
@@ -690,18 +707,18 @@ L3 programming layer <2024-02-20>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 23820 strings out of 474116
- 442758 string characters out of 5743681
- 1933187 words of memory out of 5000000
- 45764 multiletter control sequences out of 15000+600000
- 572684 words of font info for 71 fonts, out of 8000000 for 9000
+ 24363 strings out of 474116
+ 449038 string characters out of 5743681
+ 1936187 words of memory out of 5000000
+ 46283 multiletter control sequences out of 15000+600000
+ 577270 words of font info for 86 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 84i,6n,93p,539b,478s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb>
-Output written on Relazione.pdf (4 pages, 472790 bytes).
+ 84i,11n,93p,539b,509s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb>
+Output written on Relazione.pdf (4 pages, 548321 bytes).
 PDF statistics:
- 152 PDF objects out of 1000 (max. 8388607)
- 124 compressed objects within 2 object streams
- 22 named destinations out of 1000 (max. 500000)
- 154 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 200 PDF objects out of 1000 (max. 8388607)
+ 156 compressed objects within 2 object streams
+ 25 named destinations out of 1000 (max. 500000)
+ 162 words of extra memory for PDF output out of 10000 (max. 10000000)
 
