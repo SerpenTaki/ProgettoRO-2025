@@ -134,14 +134,24 @@
     \begin{equation}
         \min \sum_{t \in T} t \cdot u_t
     \end{equation}
-    L'obiettivo è quello di trovare il turno minimo in cui il boss viene sconfitto quindi sommiamo tutti i turni ma solo quello dove
-    \textbf{S.T.}\\
+    L'obiettivo è quello di trovare il turno minimo in cui il boss viene sconfitto. Quindi sommiamo tutti i turni ma solo quello dove viene sconfitto non va a 0.\\
+    \newpage
+    \subsubsection{Vincoli}
     \begin{itemize}
-        \item 
+        \item La stamina e il mana sono valori che si aggiornano in base al consumo (\textit{durante la fase di attacco}) o alla ricarica (\textit{durante la fase di riposo}).
     \end{itemize}
     \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} ll}
-        & \\
+       $S_{t+1} = S_t - \sum_{k \in K} x_{k,t} \cdot SKC (1+ 0.75 \cdot y_{k,t}) + \sum_{k \in K} (1-x_{k,t}) \cdot 0.3 \cdot CS_{k,t-1}$ & $\forall k$ \\
+       & \\
+       $M_{t+1} = M_t - \sum_{m \in M} z_{m,t} \cdot MMC + \sum_{m \in M} (1-z_{m,t}) \cdot 0.2 \cdot CM_{m,t-1}$ & $\forall m$ \\
     \end{tabular*}
+    \begin{itemize}
+        \item Consumo cumulativo
+    \end{itemize}
+    \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} ll}
+       $CS_{k,t} = CS_{}$ & \\
+
+     \end{tabular*}
     \newpage
     \section{Implementazione}
     \subsection{File .mod}
