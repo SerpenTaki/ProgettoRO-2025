@@ -117,7 +117,7 @@
         1 & \text{se il cavaliere } k \text{ attacca al turno } t \\ 
         0 & \text{altrimenti} 
     \end{cases}$
-    \item $y_{m,t} = \begin{cases} 
+    \item $y_{k,t} = \begin{cases} 
         1 & \text{se il cavaliere } k \text{ usa 2 mani per attaccare } \\ 
         0 & \text{altrimenti} 
     \end{cases}$
@@ -149,9 +149,61 @@
         \item Consumo cumulativo
     \end{itemize}
     \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} ll}
-       $CS_{k,t} = CS_{}$ & \\
-
+       $CS_{k,t} = CS_{k,t-1} + x_{k,t} \cdot SKC(1 + 0.75 y_{k,t})$ & $\forall k,t$ \\
+        & \\
+        $CM_{m,t} = CM_{m,t-1} + z_{m,t} \cdot MMC$ & $\forall m,t$ \\
      \end{tabular*}
+    \begin{itemize}
+        \item I Maghi decidendo di non attacare potenziano l'attacco dei Cavalieri per i 2 turni successivi
+    \end{itemize}
+    \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} ll}
+        $Boost_{t} = 1 + 0.2(\sum_{m \in M}(1-z_{m,t-1})+\sum_{m \in M}(1+z_{m,t-2}))$ & $\forall t \geq 3$\\
+    \end{tabular*}
+    \begin{itemize}
+        \item Vincoli sul danno e sulla condizione di vittoria
+    \end{itemize}
+    \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} ll}
+        $DPT_t = (\sum_{k \in K} x_{k,t} \cdot DK \cdot (1 + y_{k,t}))\cdot Boost_{t} + \sum_{m \in M} z_{m,t} \cdot DM$ & $\forall t$\\
+        & \\
+        $\sum_{t \in T} \geq PV_{Boss} \cdot u_t$ & $\forall t$ con $\sum_{t \in T}u_t=1$ \\
+    \end{tabular*}
+    \begin{itemize}
+        \item Vincolo di riposo dei maghi, in un turno solo 1 mago 
+    \end{itemize}
+    \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} ll}
+        $\sum_{m \in M}(1-z_{m,t}) \leq 1$ & $\forall t$ \\
+    \end{tabular*}
+    \begin{itemize}
+        \item Vincoli logici
+    \end{itemize}
+    \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} ll}
+        $y_{k,t} \leq x_{k,t}$ & $\forall k,t$ \\
+        & \\
+        $\sum_{k \in K} x_{k,t} \cdot SKC(1 + 0.75 y_{k,t}) \leq S_t$ & $\forall t$ \\
+        & \\
+        $\sum_{m \in M} z_{m,t} \cdot MMC \leq M_t$ & $\forall t$ \\
+        & \\
+    \end{tabular*}\\
+    \begin{table}[h] % Ambiente table corretto
+        \centering
+        \begin{tabular}{|c|c|}
+            \hline
+            \multicolumn{2}{|c|}{\textbf{Domini}} \\
+            \hline
+            $S_t \geq 0, \, S_t \in \mathbb{R}^+$ & $M_t \geq 0, \, M_t \in \mathbb{R}^+$ \\
+            \hline
+            $CS_{k,t} \geq 0, \, CS_{k,t} \in \mathbb{R}^+$ & $CM_{k,t} \geq 0, \, CM_{k,t} \in \mathbb{R}^+$ \\
+            \hline
+            $Boost_t \geq 1, \, Boost_t \in \mathbb{R}^+$ &  $DPT_t \geq 0, \, DPT_t \in \mathbb{R}^+$ \\
+            \hline
+            \multicolumn{2}{|c|}{$x_{k,t}, y_{k,t}, z_{m,t}, u_t \in \{0,1\}$ in $\mathbb{Z}^+$} \\
+            \hline
+        \end{tabular}
+        \caption{Tabella dei Domini}
+        \label{tab:domini}
+    \end{table}
+    
+    
     \newpage
     \section{Implementazione}
     \subsection{File .mod}
