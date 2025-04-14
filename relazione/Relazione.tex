@@ -151,7 +151,7 @@ La stamina e il mana sono valori che si aggiornano in base al consumo (\textit{d
         & \\
         $\sum_{m \in M} z_{m,t} \cdot MMC \leq M_t$ & $\forall t$ \\
         & \\
-       $S_{t+1} = S_t - \sum_{k \in K} SKC (x_{k,t} +0.75 \cdot y_{k,t}) + 0.3 \cdot r_{k,t}$ & $\forall k,t$ \\
+       $S_{t+1} = S_t - \sum_{k \in K} SKC (x_{k,t} +0.75 y_{k,t}) + 0.3 \cdot r_{k,t}$ & $\forall k,t$ \\
        & \\
        $M_{t+1} = M_t - \sum_{m \in M} z_{m,t} \cdot MMC + 0.2 \cdot \gamma_{m,t}$ & $\forall m,t$ \\
          & \\
@@ -176,9 +176,9 @@ La stamina e il mana sono valori che si aggiornano in base al consumo (\textit{d
         & \\
         $z_{m,t-1} + z_{m,t-2} \leq 1$ & $\forall t$\\
        & \\
-        $DPT_t = (\sum_{k \in K} DK \cdot (x_{k,t} + y_{k,t} + (0.2 \cdot Boost_{t}))) + \sum_{m \in M} z_{m,t} \cdot DM$ & $\forall t$\\
+        $DPT_t = (\sum_{k \in K} DK \cdot (x_{k,t} + y_{k,t} + (0.2 Boost_{t}))) + \sum_{m \in M} z_{m,t} \cdot DM$ & $\forall t$\\
         & \\
-        $\sum_{t \in T} DPT_t \geq PV_{Boss} \cdot u_t$ & $\forall t$ \\
+        $\sum_{t=1}^t DPT_t \geq PV_{Boss} \cdot u_t$ & $\forall t$ \\
         & \\
     \end{tabular*}
     Vincolo di riposo dei maghi, in un turno solo 1 mago \\
