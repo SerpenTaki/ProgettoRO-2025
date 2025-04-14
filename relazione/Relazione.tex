@@ -93,15 +93,15 @@
     \begin{itemize}
         \item $T$: Insieme dei turni possibili, con $t \in T \subseteq \mathbb{Z}^+$
         \item $K$: Insieme dei cavalieri, con $k \in K \subseteq \mathbb{Z}^+$ e $k = \{ 0,1,2,3 \}$
-        \item $M$: Insieme dei maghi, con $m \in M \subseteq \mathbb{Z}^+$ e $m = 3- k$
+        \item $W$: Insieme dei maghi, con $w \in W \subseteq \mathbb{Z}^+$ e $w = 3- k$
     \end{itemize}
     \subsection{Parametri}
     \begin{itemize}
         \item $PV_{Boss}$: punti vita del Boss
         \item $DK$: danno che un cavaliere può infliggere
-        \item $DM$: danno che un mago può infliggere
+        \item $DW$: danno che un mago può infliggere
         \item $SKC$: consumo di stamina da parte di un cavaliere
-        \item $MMC$: consumo di mana da parte di un mago
+        \item $MWC$: consumo di mana da parte di un mago
         \item $S_{max}$: stamina massima del team
         \item $M_{max}$: mana massimo del team
         \item $S_{min}$: stamina minima del team $=0$
@@ -120,8 +120,8 @@
         1 & \text{se il cavaliere } k \text{ usa 2 mani per attaccare } \\ 
         0 & \text{altrimenti} 
     \end{cases}$
-    \item $z_{m,t} = \begin{cases} 
-        1 & \text{se il mago } m \text{ attacca nel turno } t \\ 
+    \item $z_{w,t} = \begin{cases} 
+        1 & \text{se il mago } w \text{ attacca nel turno } t \\ 
         0 & \text{altrimenti} 
     \end{cases}$
     \item $Boost_t = \begin{cases}
@@ -143,40 +143,40 @@
 La stamina e il mana sono valori che si aggiornano in base al consumo (\textit{durante la fase di attacco}) o alla ricarica (\textit{durante la fase di riposo}).\\
     \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} ll}
         \\
-        $S_{t+1} \geq S_{min}$ \hspace{1cm} $S_{t+1} \leq S_{max}$ \hspace{1cm} $M_{t+1} \geq M_{min}$ \hspace{1cm} $M_{t+1} \leq M_{max}$  & $\forall t$ \\
+        $S_{t+1} \geq S_{min}$ \hspace{1cm} $S_{t+1} \leq S_{max}$ \hspace{1cm} $M_{t+1} \geq M_{min}$ \hspace{1cm} $M_{t+1} \leq M_{max}$  & $\forall t$ \\ %%Da fixare con il +1
         \\
         $y_{k,t} \leq x_{k,t}$ & $\forall k,t$ \\
         & \\
         $\sum_{k \in K} SKC(x_{k,t} + 0.75 y_{k,t}) \leq S_t$ & $\forall t$ \\
         & \\
-        $\sum_{m \in M} z_{m,t} \cdot MMC \leq M_t$ & $\forall t$ \\
+        $\sum_{w \in W} z_{w,t} \cdot MWC \leq M_t$ & $\forall t$ \\
         & \\
        $S_{t+1} = S_t - \sum_{k \in K} SKC (x_{k,t} +0.75 y_{k,t}) + 0.3 \cdot r_{k,t}$ & $\forall k,t$ \\
        & \\
-       $M_{t+1} = M_t - \sum_{m \in M} z_{m,t} \cdot MMC + 0.2 \cdot \gamma_{m,t}$ & $\forall m,t$ \\
+       $M_{t+1} = M_t - \sum_{w \in W} z_{w,t} \cdot MWC + 0.2 \cdot \gamma_{w,t}$ & $\forall w,t$ \\
          & \\
     \end{tabular*}
     dove definiamo $r$ e $\gamma$ come 2 variabili ausiliarie usate per linearizzare il vincolo di riposo dei cavalieri e maghi, e sono soggette a:\\
     \begin{tabular*}{\textwidth}{@{\extracolsep{0pt}} ll}
         \\
-    $r_{k,t} \leq S_{max} (1-x_{k,t})$ \hspace{2cm} & $\gamma_{m,t} \leq M_{max} (1-z_{m,t})$ \\
+    $r_{k,t} \leq S_{max} (1-x_{k,t})$ \hspace{2cm} & $\gamma_{w,t} \leq M_{max} (1-z_{w,t})$ \\
     \\
-    $r_{k,t} \geq (S_{max}-S_t) - M \cdot x_{k,t}$ \hspace{2cm} & $\gamma_{m,t} \geq (M_{max}-{M_t}) - M \cdot z_{m,t}$ \\
+    $r_{k,t} \geq (S_{max}-S_t) - M \cdot x_{k,t}$ \hspace{2cm} & $\gamma_{w,t} \geq (M_{max}-{M_t}) - M \cdot z_{w,t}$ \\
     \\
-    $r_{k,t} \leq S_{max}-S_t $ \hspace{2cm} & $\gamma_{m,t} \leq M_{max}-M_t$ \\
+    $r_{k,t} \leq S_{max}-S_t $ \hspace{2cm} & $\gamma_{w,t} \leq M_{max}-M_t$ \\
     \\
-    $r_{k,t} \geq 0$ \hspace{2cm} & $\gamma_{m,t} \geq 0$ \\
+    $r_{k,t} \geq 0$ \hspace{2cm} & $\gamma_{w,t} \geq 0$ \\
     \\
     \end{tabular*}
     Dove $M$ è un numero sufficientemente grande per garantire che il vincolo sia soddisfatto, ad esempio $M=S_{max}$.\\
     \newpage
     Vincoli sul danno e sulla condizione di vittoria\\ 
     \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} ll}\\
-        $Boost_t \leq \sum_{m \in M}((1-z_{m,t-1})+(1-z_{m,t-2}))$ & $\forall t$ \\
+        $Boost_t \leq \sum_{w \in W}((1-z_{w,t-1})+(1-z_{w,t-2}))$ & $\forall t$ \\
         & \\
         $z_{m,t-1} + z_{m,t-2} \leq 1$ & $\forall t$\\
        & \\
-        $DPT_t = (\sum_{k \in K} DK \cdot (x_{k,t} + y_{k,t} + (0.2 Boost_{t}))) + \sum_{m \in M} z_{m,t} \cdot DM$ & $\forall t$\\
+        $DPT_t = (\sum_{k \in K} DK \cdot (x_{k,t} + y_{k,t} + (0.2 Boost_{t}))) + \sum_{w \in W} z_{w,t} \cdot DW$ & $\forall t$\\
         & \\
         $\sum_{t=1}^t DPT_t \geq PV_{Boss} \cdot u_t$ & $\forall t$ \\
         & \\
@@ -184,12 +184,12 @@ La stamina e il mana sono valori che si aggiornano in base al consumo (\textit{d
     Vincolo di riposo dei maghi, in un turno solo 1 mago \\
     \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} ll}
         \\
-        $\sum_{m \in M}(1-z_{m,t}) \leq 1$ & $\forall t$ \\
+        $\sum_{w \in W}(1-z_{w,t}) \leq 1$ & $\forall t$ \\
         \\
     \end{tabular*}
     Domini:\\
     \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} l}\\
-        $x_{k,t}, y_{k,t}, z_{m,t}, u_t, Boost_t \in \{0,1\}$ in $\mathbb{Z}^+$\\
+        $x_{k,t}, y_{k,t}, z_{w,t}, u_t, Boost_t \in \{0,1\}$ in $\mathbb{Z}^+$\\
          \\
          $S_t, M_t, DPT_t \geq 0, \text{ con  } S_t, M_t, DPT_t \in \mathbb{R}^+$\\
     \end{tabular*}

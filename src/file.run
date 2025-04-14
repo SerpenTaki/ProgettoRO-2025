@@ -1,0 +1,8 @@
+reset;
+model file.mod;
+data file.dat;
+option solver gurobi;
+solve;
+
+display TurniMinimi;  # Mostra il valore della funzione obiettivo
+display u, DPT, St, Mt, PVBoss; #y, x, z, Boost;
