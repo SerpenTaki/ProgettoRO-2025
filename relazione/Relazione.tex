@@ -85,6 +85,7 @@
         \item Un Boss ha un certo numero di punti vita;
         \item Nei turni di riposo il mago ripristina il 20$\%$ di mana consumato;
         \item Nei turni di riposo il cavaliere ripristina il 30$\%$ di stamina consumata;
+        \item Il boost del cavaliere ottenuto dal mago che si riposa aumenta del 20$\%$ il danno base con una mano che il cavaliere infligge;
     \end{itemize}
 
     \section{Modello}
@@ -124,7 +125,7 @@
         0 & \text{altrimenti} 
     \end{cases}$
     \item $Boost_t = \begin{cases}
-        1 & \text{ se } 2- (z_{m,t-1} + z_{m,t-2}) \geq 1 \text{ un mago si è riposato in uno dei 2 turni precedenti } \\
+        1 & \text{ se } \text{un mago si è riposato in uno dei 2 turni precedenti } \\
         0 & \text{ altrimenti }
     \end{cases}$
     \item $u_t = \begin{cases}
@@ -168,10 +169,14 @@ La stamina e il mana sono valori che si aggiornano in base al consumo (\textit{d
     \\
     \end{tabular*}
     Dove $M$ è un numero sufficientemente grande per garantire che il vincolo sia soddisfatto, ad esempio $M=S_{max}$.\\
+    \newpage
     Vincoli sul danno e sulla condizione di vittoria\\ 
-    \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} ll}
+    \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} ll}\\
+        $Boost_t \leq \sum_{m \in M}((1-z_{m,t-1})+(1-z_{m,t-2}))$ & $\forall t$ \\
+        & \\
+        $z_{m,t-1} + z_{m,t-2} \leq 1$ & $\forall t$\\
        & \\
-        $DPT_t = (\sum_{k \in K} DK \cdot (x_{k,t} + y_{k,t} + 0.2 \cdot Boost_{t})) + \sum_{m \in M} z_{m,t} \cdot DM$ & $\forall t$\\
+        $DPT_t = (\sum_{k \in K} DK \cdot (x_{k,t} + y_{k,t} + (0.2 \cdot Boost_{t}))) + \sum_{m \in M} z_{m,t} \cdot DM$ & $\forall t$\\
         & \\
         $\sum_{t \in T} DPT_t \geq PV_{Boss} \cdot u_t$ & $\forall t$ \\
         & \\
@@ -182,25 +187,15 @@ La stamina e il mana sono valori che si aggiornano in base al consumo (\textit{d
         $\sum_{m \in M}(1-z_{m,t}) \leq 1$ & $\forall t$ \\
         \\
     \end{tabular*}
-   % \begin{table}[h] % Ambiente table corretto
-  %      \centering
-   %     \begin{tabular}{|c|c|}
-    %        \hline
-     %       \multicolumn{2}{|c|}{\textbf{Domini}} \\
-      %      \hline
-       %     $S_t \geq 0, \, S_t \in \mathbb{R}^+$ & $M_t \geq 0, \, M_t \in \mathbb{R}^+$ \\
-        %    \hline
-         %   $CS_{k,t} \geq 0, \, CS_{k,t} \in \mathbb{R}^+$ & $CM_{k,t} \geq 0, \, CM_{k,t} \in \mathbb{R}^+$ \\
-          %  \hline
-           % $Boost_t \geq 1, \, Boost_t \in \mathbb{R}^+$ &  $DPT_t \geq 0, \, DPT_t \in \mathbb{R}^+$ \\
-            %\hline
-           % \multicolumn{2}{|c|}{$x_{k,t}, y_{k,t}, z_{m,t}, u_t, a_{k,t} \in \{0,1\}$ in $\mathbb{Z}^+$} \\
-           % \hline
-       % \end{tabular}
-        %\caption{Tabella dei Domini}
-        %\label{tab:domini}
-    %\end{table}
+    Domini:\\
+    \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} l}\\
+        $x_{k,t}, y_{k,t}, z_{m,t}, u_t, Boost_t \in \{0,1\}$ in $\mathbb{Z}^+$\\
+         \\
+         $S_t, M_t, DPT_t \geq 0, \text{ con  } S_t, M_t, DPT_t \in \mathbb{R}^+$\\
+    \end{tabular*}
     
+
+
     \newpage
     \section{Implementazione}
     \subsection{File .mod}
