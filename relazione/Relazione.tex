@@ -73,19 +73,18 @@
     \newpage
     \section{Introduzione}
     \subsection{Abstract}
-    Si presenta un problema di ottimizzazione strategica nei giochi RPG dove il giocatore deve strategicamente comporre un team di personaggi per minimizzare il numero di turni impiegati per uccidere un eventuale boss.\\
+    Si presenta un problema di ottimizzazione strategica nei giochi RPG dove il giocatore deve comporre un team di personaggi per minimizzare il numero di turni impiegati per uccidere un eventuale boss.\\
     \subsection{Descrizione del problema}
     Per un gioco di ruolo il giocatore può scegliere di comporre un team di personaggi.
-    Ogni team è formato da 3 personaggi scelti tra Cavalieri e Maghi. Questo significa che un team può essere formato da 3 Cavalieri, 3 Maghi o da un misto di entrambi. 
+    Ogni \textit{party}\footnote{Insieme di cavalieri e maghi che compongono il team.} è formato da 3 personaggi scelti tra Cavalieri e Maghi. Questo significa che un team può essere formato da 3 Cavalieri, 3 Maghi o da un misto di entrambi. 
     La stamina e il mana sono statistiche separate ma condivise tra i personaggi; in generale
     il mana viene usato dai Maghi, mentre la stamina dai Cavalieri.
     I 3 personaggi possono decidere di attaccare durante lo stesso turno o di non attaccare per quello specifico turno per recuperare un certo quantitativo di mana e stamina.
-    I Cavalieri, quando attaccano, possono decidere di usare la spada con 2 mani consumando il 75\% di stamina in più ma infliggendo il doppio dei danni. Mentre i Maghi, decidendo di non attaccare, potenziano l'attacco dei Cavalieri del 20\% per i 2 turni successivi. Non è possibile che 2 Maghi si riposino nello stesso turno. Si vuole minimizzare il numero di turni totali per uccidere un grande mostro con un determinato quantitativo di vita. Sapendo che:
+    I Cavalieri, quando attaccano, possono decidere di usare la spada con 2 mani consumando il 75\% di stamina in più ma infliggendo il doppio dei danni. Mentre i Maghi, decidendo di non attaccare, potenziano l'attacco dei Cavalieri del 20\% in più per i 2 turni successivi. Non è possibile che 2 Maghi si riposino nello stesso turno. Si vuole minimizzare il numero di turni totali per uccidere un grande mostro con un determinato quantitativo di vita. Sapendo che:
     \begin{itemize}
         \item Un Boss ha un certo numero di punti vita;
         \item Nei turni di riposo il mago ripristina il 20$\%$ di mana consumato;
         \item Nei turni di riposo il cavaliere ripristina il 30$\%$ di stamina consumata;
-        \item Il boost non è cumulativo se un mago si riposa e poi un altro mago si riposa nel turno successivo il boost non viene applicato;
     \end{itemize}
 
     \section{Modello}
@@ -102,15 +101,16 @@
         \item $DM$: danno che un mago può infliggere
         \item $SKC$: consumo di stamina da parte di un cavaliere
         \item $MMC$: consumo di mana da parte di un mago
+        \item $S_{max}$: stamina massima del team
+        \item $M_{max}$: mana massimo del team
+        \item $S_{min}$: stamina minima del team $=0$
+        \item $M_{min}$: mana minima del team $=0$
     \end{itemize}
    \subsection{Variabili decisionali}
    \begin{itemize}
     \item $S_t$: Stamina disponibile all'inizio del turno
     \item $M_t$: Mana disponibile all'inizio del turno
-    \item $CS_{k,t}$: Stamina totale consumata dal cavaliere $k$ fino al turno $t$
-    \item $CM_{m,t}$: Mana totale consumato dal mago $m$ fino al turno $t$
-    \item $Boost_t$: Moltiplicatore di danno per i cavalieri (\textit{nel caso di riposo da parte del mago})
-    \item $DPT_t$: Danno per turno, quindi il danno totale inflitto dal \textit{party}\footnote{Insieme di cavalieri e maghi che compongono il team.} al turno $t$
+    \item $DPT_t$: Danno per turno, quindi il danno totale inflitto dal \textit{party} al turno $t$
     \item $x_{k,t} = \begin{cases} 
         1 & \text{se il cavaliere } k \text{ attacca al turno } t \\ 
         0 & \text{altrimenti} 
@@ -119,13 +119,13 @@
         1 & \text{se il cavaliere } k \text{ usa 2 mani per attaccare } \\ 
         0 & \text{altrimenti} 
     \end{cases}$
-    \item $a_{k,t} = \begin{cases} 
-        1 & \text{se} x_{k,t} \cdot y_{k,t}  = 1\\
-        0 & \text{altrimenti}
-    \end{cases}$
     \item $z_{m,t} = \begin{cases} 
         1 & \text{se il mago } m \text{ attacca nel turno } t \\ 
         0 & \text{altrimenti} 
+    \end{cases}$
+    \item $Boost_t = \begin{cases}
+        1 & \text{ se } 2- (z_{m,t-1} + z_{m,t-2}) \geq 1 \text{ un mago si è riposato in uno dei 2 turni precedenti } \\
+        0 & \text{ altrimenti }
     \end{cases}$
     \item $u_t = \begin{cases}
         1 & \text{se il boss è stato sconfitto nel turno } t \\
@@ -139,81 +139,67 @@
     L'obiettivo è quello di trovare il turno minimo in cui il boss viene sconfitto. Quindi sommiamo tutti i turni ma solo quello dove viene sconfitto non va a 0.\\
 
     \subsubsection{Vincoli}
-    \begin{itemize}
-        \item La stamina e il mana sono valori che si aggiornano in base al consumo (\textit{durante la fase di attacco}) o alla ricarica (\textit{durante la fase di riposo}).
-    \end{itemize}
+La stamina e il mana sono valori che si aggiornano in base al consumo (\textit{durante la fase di attacco}) o alla ricarica (\textit{durante la fase di riposo}).\\
     \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} ll}
-       $S_{t+1} = S_t - \sum_{k \in K} SKC (x_{k,t} +0.75 \cdot a_{k,t}) + 0.3 \sum_{k \in K} W_{k,t}$ & $\forall k$ \\
-       & \\
-       $M_{t+1} = M_t - \sum_{m \in M} z_{m,t} \cdot MMC + 0.2 \cdot \sum_{m \in M} V_{m,t}$ & $\forall m$ \\
-         & \\
-    \end{tabular*}
-    dove definiamo:
-    \begin{itemize}
-        \item $W_{k,t} \leq CS_{k,t-1} \cdot (1-x_{k,t})$
-        \item $W_{k,t} \leq CS_{k,t-1} - M \cdot x_{k,t}$
-        \item $V_{m,t} \leq CM_{m,t-1} \cdot (1-z_{m,t})$
-        \item $V_{m,t} \leq CM_{m,t-1} - M \cdot z_{m,t}$
-        \item $a_{k,t} \leq x_{k,t}$ \hspace{1cm} $a_{k,t} \leq y_{k,t}$ \hspace{1cm} $a_{k,t} \geq x_{k,t} + y_{k,t} -1$
-        \item $M$ valore abbastanza grande da garantire che il vincolo sia sempre soddisfatto $(M = max(CS_{k,t}, CM_{m,t}))$
-    \end{itemize}
-    \begin{itemize}
-        \item Consumo cumulativo
-    \end{itemize}
-    \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} ll}
-       $CS_{k,t} = CS_{k,t-1} + SKC (x_{k,t} + 0.75 \cdot a_{k,t})$ & $\forall k,t$ \\
-        & \\
-        $CM_{m,t} = CM_{m,t-1} + z_{m,t} \cdot MMC$ & $\forall m,t$ \\
-     \end{tabular*}
-    \begin{itemize}
-        \item I Maghi decidendo di non attacare potenziano l'attacco dei Cavalieri per i 2 turni successivi
-    \end{itemize}
-    \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} ll}
-        $Boost_{t} = 1 + 0.2(\sum_{m \in M}(1-z_{m,t-1})+\sum_{m \in M}(1+z_{m,t-2}))$ & $\forall t \geq 3$\\
-    \end{tabular*}
-    \begin{itemize}
-        \item Vincoli sul danno e sulla condizione di vittoria
-    \end{itemize}
-    \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} ll}
-        $DPT_t = (\sum_{k \in K} x_{k,t} \cdot DK \cdot (1 + y_{k,t}))\cdot Boost_{t} + \sum_{m \in M} z_{m,t} \cdot DM$ & $\forall t$\\
-        & \\
-        $\sum_{t \in T} \geq PV_{Boss} \cdot u_t$ & $\forall t$ con $\sum_{t \in T}u_t=1$ \\
-    \end{tabular*}
-    \begin{itemize}
-        \item Vincolo di riposo dei maghi, in un turno solo 1 mago 
-    \end{itemize}
-    \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} ll}
-        $\sum_{m \in M}(1-z_{m,t}) \leq 1$ & $\forall t$ \\
-    \end{tabular*}
-    \begin{itemize}
-        \item Vincoli logici
-    \end{itemize}
-    \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} ll}
+        \\
+        $S_{t+1} \geq S_{min}$ \hspace{1cm} $S_{t+1} \leq S_{max}$ \hspace{1cm} $M_{t+1} \geq M_{min}$ \hspace{1cm} $M_{t+1} \leq M_{max}$  & $\forall t$ \\
+        \\
         $y_{k,t} \leq x_{k,t}$ & $\forall k,t$ \\
         & \\
-        $\sum_{k \in K} x_{k,t} \cdot SKC(1 + 0.75 y_{k,t}) \leq S_t$ & $\forall t$ \\
+        $\sum_{k \in K} SKC(x_{k,t} + 0.75 y_{k,t}) \leq S_t$ & $\forall t$ \\
         & \\
         $\sum_{m \in M} z_{m,t} \cdot MMC \leq M_t$ & $\forall t$ \\
         & \\
-    \end{tabular*}\\
-    \begin{table}[h] % Ambiente table corretto
-        \centering
-        \begin{tabular}{|c|c|}
-            \hline
-            \multicolumn{2}{|c|}{\textbf{Domini}} \\
-            \hline
-            $S_t \geq 0, \, S_t \in \mathbb{R}^+$ & $M_t \geq 0, \, M_t \in \mathbb{R}^+$ \\
-            \hline
-            $CS_{k,t} \geq 0, \, CS_{k,t} \in \mathbb{R}^+$ & $CM_{k,t} \geq 0, \, CM_{k,t} \in \mathbb{R}^+$ \\
-            \hline
-            $Boost_t \geq 1, \, Boost_t \in \mathbb{R}^+$ &  $DPT_t \geq 0, \, DPT_t \in \mathbb{R}^+$ \\
-            \hline
-            \multicolumn{2}{|c|}{$x_{k,t}, y_{k,t}, z_{m,t}, u_t, a_{k,t} \in \{0,1\}$ in $\mathbb{Z}^+$} \\
-            \hline
-        \end{tabular}
-        \caption{Tabella dei Domini}
-        \label{tab:domini}
-    \end{table}
+       $S_{t+1} = S_t - \sum_{k \in K} SKC (x_{k,t} +0.75 \cdot y_{k,t}) + 0.3 \cdot r_{k,t}$ & $\forall k,t$ \\
+       & \\
+       $M_{t+1} = M_t - \sum_{m \in M} z_{m,t} \cdot MMC + 0.2 \cdot \gamma_{m,t}$ & $\forall m,t$ \\
+         & \\
+    \end{tabular*}
+    dove definiamo $r$ e $\gamma$ come 2 variabili ausiliarie usate per linearizzare il vincolo di riposo dei cavalieri e maghi, e sono soggette a:\\
+    \begin{tabular*}{\textwidth}{@{\extracolsep{0pt}} ll}
+        \\
+    $r_{k,t} \leq S_{max} (1-x_{k,t})$ \hspace{2cm} & $\gamma_{m,t} \leq M_{max} (1-z_{m,t})$ \\
+    \\
+    $r_{k,t} \geq (S_{max}-S_t) - M \cdot x_{k,t}$ \hspace{2cm} & $\gamma_{m,t} \geq (M_{max}-{M_t}) - M \cdot z_{m,t}$ \\
+    \\
+    $r_{k,t} \leq S_{max}-S_t $ \hspace{2cm} & $\gamma_{m,t} \leq M_{max}-M_t$ \\
+    \\
+    $r_{k,t} \geq 0$ \hspace{2cm} & $\gamma_{m,t} \geq 0$ \\
+    \\
+    \end{tabular*}
+    Dove $M$ è un numero sufficientemente grande per garantire che il vincolo sia soddisfatto, ad esempio $M=S_{max}$.\\
+    Vincoli sul danno e sulla condizione di vittoria\\ 
+    \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} ll}
+       & \\
+        $DPT_t = (\sum_{k \in K} DK \cdot (x_{k,t} + y_{k,t} + 0.2 \cdot Boost_{t})) + \sum_{m \in M} z_{m,t} \cdot DM$ & $\forall t$\\
+        & \\
+        $\sum_{t \in T} DPT_t \geq PV_{Boss} \cdot u_t$ & $\forall t$ \\
+        & \\
+    \end{tabular*}
+    Vincolo di riposo dei maghi, in un turno solo 1 mago \\
+    \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} ll}
+        \\
+        $\sum_{m \in M}(1-z_{m,t}) \leq 1$ & $\forall t$ \\
+        \\
+    \end{tabular*}
+   % \begin{table}[h] % Ambiente table corretto
+  %      \centering
+   %     \begin{tabular}{|c|c|}
+    %        \hline
+     %       \multicolumn{2}{|c|}{\textbf{Domini}} \\
+      %      \hline
+       %     $S_t \geq 0, \, S_t \in \mathbb{R}^+$ & $M_t \geq 0, \, M_t \in \mathbb{R}^+$ \\
+        %    \hline
+         %   $CS_{k,t} \geq 0, \, CS_{k,t} \in \mathbb{R}^+$ & $CM_{k,t} \geq 0, \, CM_{k,t} \in \mathbb{R}^+$ \\
+          %  \hline
+           % $Boost_t \geq 1, \, Boost_t \in \mathbb{R}^+$ &  $DPT_t \geq 0, \, DPT_t \in \mathbb{R}^+$ \\
+            %\hline
+           % \multicolumn{2}{|c|}{$x_{k,t}, y_{k,t}, z_{m,t}, u_t, a_{k,t} \in \{0,1\}$ in $\mathbb{Z}^+$} \\
+           % \hline
+       % \end{tabular}
+        %\caption{Tabella dei Domini}
+        %\label{tab:domini}
+    %\end{table}
     
     \newpage
     \section{Implementazione}
