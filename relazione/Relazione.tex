@@ -209,12 +209,12 @@ La stamina e il mana sono valori che si aggiornano in base al consumo (\textit{d
     \begin{lstlisting}[language=haskell, frame=single, caption={File di esecuzione}, captionpos=b, keywordstyle=\color{purple}]  
 reset;
 model file.mod;
-data Dati/file.dat; # cambiare il nome del "file.dat" per selezionare lo scenario
+data Dati/scenario1.dat;
 option solver gurobi;
 solve;
         
 display TurniMinimi; 
-display u, DPT, St, Mt;
+display u, DPT, Stamina, Mana; 
     \end{lstlisting}
 \newpage
 \subsection{File .mod}
