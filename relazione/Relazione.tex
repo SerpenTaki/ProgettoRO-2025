@@ -221,8 +221,7 @@ display u, DPT, St, Mt;
 \begin{lstlisting}[language=haskell, frame=single, caption={Modello in Ampl}, captionpos=b, keywordstyle=\color{purple}]  
 set T ordered;
 set K; 
-set W;
-
+set W;    
 param PVBoss;
 param DK;
 param DW;
@@ -232,83 +231,84 @@ param Smax;
 param Mmax;
 param Smin;
 param Mmin;
-param BigM := 100;
-
-var St{T} >= 0;
-var Mt{T} >= 0;
+param BigM := Smax;    
+var Stamina{T} >= 0;
+var Mana{T} >= 0;
 var DPT{T} >= 0;
-
 var x{k in K, t in T} binary;  
 var y{k in K, t in T} binary;  
 var z{w in W, t in T} binary;  
 var Boost{T} binary;
-var u{T} binary;
-
+var u{T} binary;    
 var r{k in K, t in T} >= 0;    
 var gamma{w in W, t in T} >= 0; 
-
+    
 minimize TurniMinimi:
     sum {t in T} t * u[t];
-
+    
 subject to StaminaMin {t in T: t != last(T)}: 
-    St[t] >= Smin;
-
+    Stamina[t] >= Smin;
+    
 subject to StaminaMax {t in T: t != last(T)}: 
-    St[t] <= Smax;
-
+    Stamina[t] <= Smax;
+    
 subject to ManaMin {t in T: t != last(T)}: 
-    Mt[t] >= Mmin;
-
+    Mana[t] >= Mmin;
+    
 subject to ManaMax {t in T: t != last(T)}: 
-    Mt[t] <= Mmax;
-
+    Mana[t] <= Mmax;
+    
 subject to Attacco2mani{k in K, t in T}:
     y[k,t] <= x[k,t];
-
+    
 subject to ConsumoStamina{t in T}:
-    sum{k in K} SKC * (x[k,t] + 0.75 * y[k,t]) <= St[t];
-
+    sum{k in K} SKC * (x[k,t] + (0.75 * y[k,t])) <= Stamina[t];
+    
 subject to ConsumoMana{t in T}:
-    sum{w in W} z[w,t] * MWC <= Mt[t];
-
+    sum{w in W} z[w,t] * MWC <= Mana[t];
+    
 subject to AggiornaStamina{t in T: ord(t) < card(T)}:
-    St[t+1] = St[t] - sum{k in K} SKC * (x[k,t] + 0.75 * y[k,t]) + 0.3 * sum{k in K} r[k,t];
-
+    Stamina[t+1] = Stamina[t] - sum{k in K} SKC * (x[k,t] + (0.75 * y[k,t])) + 0.3 * sum{k in K} r[k,t];
+    
 subject to AggiornaMana{t in T: ord(t) < card(T)}:
-    Mt[t+1] = Mt[t] - sum{w in W} z[w,t] * MWC + 0.2 * sum{w in W} gamma[w,t];
-
+    Mana[t+1] = Mana[t] - sum{w in W} z[w,t] * MWC + 0.2 * sum{w in W} gamma[w,t];
+    
 subject to RiposoCavaliere1 {k in K, t in T}:
     r[k,t] <= Smax * (1 - x[k,t]);
-
+    
 subject to RiposoCavaliere2 {k in K, t in T}:
-    r[k,t] >= (Smax - St[t]) - BigM * x[k,t];
-
+    r[k,t] >= (Smax - Stamina[t]) - BigM * x[k,t];
+    
 subject to RiposoCavaliere3 {k in K, t in T}:
-    r[k,t] <= Smax - St[t];
-
+    r[k,t] <= Smax - Stamina[t];
+    
 subject to RiposoMago1 {w in W, t in T}:
     gamma[w,t] <= Mmax * (1 - z[w,t]);
-
+    
 subject to RiposoMago2 {w in W, t in T}:
-    gamma[w,t] >= (Mmax - Mt[t]) - BigM * z[w,t];
-
+    gamma[w,t] >= (Mmax - Mana[t]) - BigM * z[w,t];
+    
 subject to RiposoMago3 {w in W, t in T}:
-    gamma[w,t] <= Mmax - Mt[t];
-
+    gamma[w,t] <= Mmax - Mana[t];
+    
 subject to BoostCondition {t in T: ord(t) > 2}:
     Boost[t] <= sum {w in W} (1 - z[w,t-1] + 1 - z[w,t-2]);
-
+        
+subject to BoostCondition2 {t in T: ord(t) > 2}:
+    sum{w in W}(z[w,t-1]+z[w,t-2]) <= 1;
+    
 subject to UnoRiposaPerTurno {t in T}:
     sum {w in W} (1 - z[w,t]) <= 1;
-
+    
 subject to DannoPerTurno {t in T}:
-    DPT[t] = sum{k in K} DK * (x[k,t] + y[k,t] + 0.2 * Boost[t]) + sum{w in W} z[w,t] * DW;
-
+    DPT[t] = sum{k in K} DK * (x[k,t] + y[k,t] + (0.2 * Boost[t])) + sum{w in W} z[w,t] * DW;
+    
 subject to BossSconfitto {t in T}:
     sum{tt in T: ord(tt) <= ord(t)} DPT[tt] >= PVBoss * u[t];
-
+    
 subject to SoloUnTurno:
-    sum{t in T} u[t] = 1;
+    sum{t in T} u[t] = 1; 
+    
 \end{lstlisting}
 
 \section{Primo scenario e introduzione}
@@ -329,55 +329,53 @@ Nel primo scenario, il team è composto da 2 cavalieri ed un mago. Il boss prese
 \end{table}\\
 Per tutti gli scenari queste statistiche sono state mantenute costanti. In modo tale che ci si possa concentrare sulla differenza della composizione del \textit{party}
 \subsection{File .dat}
-\begin{lstlisting}[language=haskell, frame=single, captionpos=b, keywordstyle=\color{purple}]  
+\begin{lstlisting}[language=haskell, caption={scenario1.dat} ,frame=single, captionpos=b, keywordstyle=\color{purple}]  
 set T := 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20;
-set K := k1,k2; 
-set W := w1;
+set K := k1,k2;
+set W := w1;    
 param PVBoss := 1200;
 param DK := 30;
 param DW := 25;
 param SKC := 20;
-param MWC := 15;    
+param MWC := 15;
 param Smax := 100;
 param Mmax := 100;
 param Smin := 0;
-param Mmin := 0;  
-var St :=
-1 100;
-var Mt :=
-1 100;
+param Mmin := 0;
+var Stamina := 1 100;
+var Mana := 1 100;
 \end{lstlisting}
 \subsection{Risultati}
 L’esecuzione del file \texttt{.run} mostra che il numero minimo di turni per sconfiggere il boss è 16. In particolare possiamo notare come appena disponibile il modello predilige l'attacco a 2 mani da parte del cavaliere
 \begin{lstlisting}[language=haskell, frame=single, captionpos=b, keywordstyle=\color{purple}]  
 ampl: include file.run;
 Gurobi 11.0.3:                Gurobi 11.0.3: optimal solution; objective 16
-64518 simplex iterations
-1359 branching nodes
+20975 simplex iterations
+624 branching nodes
 TurniMinimi = 16
-
-:    u   DPT      St          Mt       :=
-1    0   157   100         100
-2    0    37    30          85
-3    0   145    72          70
-4    0    25     2          55
-5    0   115    60.8        40
-6    0     0     5.8        25
-7    0   127    62.32       40
-8    0    12     7.32       25
-9    0    67    62.928      40
-10   0    97    54.0496     25
-11   0     0    32.8347     10
-12   0   157    73.1339     28
-13   0    12     3.13389    13
-14   0    97    61.2536     30.4
-15   0    37    37.8775     15.4
-16   1   120    75.151       0.4
-17   0     0     5.151      20.32
-18   0     0    62.0604     36.256
-19   0     0    84.8242     49.0048
-20   0     0    93.9297     59.2038
-;
+    
+:    u   DPT   Stamina     Mana      :=
+1    0   157   91.4286    15
+2    0    42   21.4286     0
+3    0    37   25         20
+4    0   132   70          5
+5    0    37    0         24
+6    0   102   60          9
+7    0    37    5         27.2
+8    0   102   62         12.2
+9    0    37    7         29.76
+10   0   102   62.8       14.76
+11   0    37    7.8       31.808
+12   0   102   63.12      16.808
+13   0    37    8.12      33.4464
+14   0    72   63.248     18.4464
+15   0    12   39.2736    34.7571
+16   1   157   75.7094    47.8057
+17   0    12    5.70944   32.8057
+18   0     0   62.2838    46.2446
+19   0     0   84.9135    56.9956
+20   0    12   93.9654    65.5965
+;    
 \end{lstlisting}
 \newpage
 \section{Secondo scenario}

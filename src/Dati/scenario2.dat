@@ -18,6 +18,6 @@ param Mmax := 100;
 param Smin := 0;
 param Mmin := 0;
 
-param Stamina := 1 100;
+var Stamina := 1 100;
 
-param Mana := 1 100;
+var Mana := 1 100;
