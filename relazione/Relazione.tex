@@ -56,8 +56,8 @@
     {\LARGE \textbf{Relazione per:} \par}
     {\Huge Ricerca Operativa \par}
     \vspace{0.5cm}
-    {\Large \textit{\textbf{Per Simulare una:}} \par}
-    {\Large Minimizzare il numero di turni per sconfiggere un Boss nei giochi RPG \par}
+    {\Large \textit{\textbf{Per Minimizzare:}} \par}
+    {\Large il numero di turni per sconfiggere un Boss\\ nei giochi RPG \par}
     \vfill
     \textbf{Realizzata da:} \par
     Gabriele Di Pietro, matricola 2010000 \par
@@ -74,11 +74,11 @@
     \newpage
     \section{Introduzione}
     \subsection{Abstract}
-    Si presenta un problema di ottimizzazione strategica nei giochi RPG dove il giocatore deve comporre un team di personaggi per minimizzare il numero di turni impiegati per uccidere un eventuale boss.
+    Si presenta un problema di ottimizzazione strategica nei giochi RPG dove il giocatore deve comporre un team di personaggi per minimizzare il numero di turni impiegati per sconfiggere un eventuale boss.
     \subsection{Descrizione del problema}
     Per un gioco di ruolo il giocatore può scegliere di comporre un team di personaggi.
-    Ogni \textit{party}\footnote{Insieme di cavalieri e maghi che compongono il team.} è formato da 3 personaggi scelti tra Cavalieri e Maghi. Questo significa che un team può essere formato da 3 Cavalieri, 3 Maghi o da un misto di entrambi. 
-    La stamina e il mana sono statistiche separate ma condivise tra i personaggi; in generale
+    Ogni \textit{party}\footnote{Insieme di cavalieri e maghi che compongono il team.} è formato da 3 personaggi a scelta tra Cavalieri e Maghi. Questo significa che un team può essere formato da 3 Cavalieri, 3 Maghi o da un misto di entrambi. 
+    La stamina e il mana sono statistiche separate ma condivise tra i personaggi. In generale
     il mana viene usato dai Maghi, mentre la stamina dai Cavalieri.
     I 3 personaggi possono decidere di attaccare durante lo stesso turno o di non attaccare per quello specifico turno per recuperare un certo quantitativo di mana e stamina.
     I Cavalieri, quando attaccano, possono decidere di usare la spada con 2 mani consumando il 75\% di stamina in più ma infliggendo il doppio dei danni. Mentre i Maghi, decidendo di non attaccare, potenziano l'attacco dei Cavalieri del 20\% in più per i 2 turni successivi. Non è possibile che 2 Maghi si riposino nello stesso turno. Si vuole minimizzare il numero di turni totali per uccidere un grande mostro con un determinato quantitativo di vita. Sapendo che:
@@ -138,7 +138,7 @@
     \begin{equation}
         \min \sum_{t \in T} t \cdot u_t
     \end{equation}
-    L'obiettivo è quello di trovare il turno minimo in cui il boss viene sconfitto. Quindi sommiamo tutti i turni ma solo quello dove viene sconfitto non va a 0.\\
+    L'obiettivo è quello di trovare il numero minimo di turni necessari a sconfiggere il boss.\\
 
     \subsubsection{Vincoli}
 La stamina e il mana sono valori che si aggiornano in base al consumo (\textit{durante la fase di attacco}) o alla ricarica (\textit{durante la fase di riposo}).\\
@@ -209,8 +209,8 @@ La stamina e il mana sono valori che si aggiornano in base al consumo (\textit{d
     \begin{lstlisting}[language=haskell, frame=single, caption={File di esecuzione}, captionpos=b, keywordstyle=\color{purple}]  
 reset;
 model file.mod;
-data Dati/scenario1.dat;
-option solver gurobi;
+data Dati/file.dat; 
+option solver gurobi; 
 solve;
         
 display TurniMinimi; 
@@ -312,8 +312,8 @@ subject to SoloUnTurno:
 \end{lstlisting}
 
 \section{Primo scenario e introduzione}
-Negli scenari presentati di seguito, il file \texttt{.dat} è stato modificato per cambiare i parametri del problema. Ipotizzando la scelta che un giocatore può fare per comporre il proprio team.
-Nel primo scenario, il team è composto da 2 cavalieri ed un mago. Il boss presenta 1200 Punti vita, e le statistiche di attacco e consumo sono le seguenti:
+Negli scenari presentati di seguito, il file \texttt{.dat} è stato modificato per variare i parametri del problema, simulando le possibili scelte che un giocatore può effettuare nella composizione del proprio team. 
+Nel primo scenario, il team è composto da 2 cavalieri e 1 mago. Il boss ha 1200 punti vita, e le statistiche di attacco e consumo sono le seguenti:
 \begin{table}[h!]
     \centering
     \begin{tabular}{|c|c|}
@@ -327,7 +327,7 @@ Nel primo scenario, il team è composto da 2 cavalieri ed un mago. Il boss prese
         \hline
     \end{tabular}
 \end{table}\\
-Per tutti gli scenari queste statistiche sono state mantenute costanti. In modo tale che ci si possa concentrare sulla differenza della composizione del \textit{party}
+Per tutti gli scenari queste statistiche sono state mantenute costanti assieme alla vita del boss. In modo tale che ci si possa concentrare sulla differenza della composizione del \textit{party}.
 \subsection{File .dat}
 \begin{lstlisting}[language=haskell, caption={scenario1.dat} ,frame=single, captionpos=b, keywordstyle=\color{purple}]  
 set T := 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20;
@@ -380,7 +380,7 @@ TurniMinimi = 16
 \newpage
 \section{Secondo scenario}
 \subsection{File .dat}
-Per il secondo scenario, il team è composto da 1 cavaliere e 2 maghi. In questo modo dovremmo poter sfruttare al meglio il boost dato dal riposo da parte dei maghi.
+Per il secondo scenario, il team è composto da 1 cavaliere e 2 maghi. In questo modo si potrà sfruttare al meglio il boost dato dal riposo da parte dei maghi.
 \begin{lstlisting}[language=haskell, frame=single, captionpos=b, keywordstyle=\color{purple}]  
 set K := k1;
 set W := w1,w2;
@@ -390,13 +390,13 @@ Come precedentemente detto le statistiche del boss e del \textit{party} sono rim
 Eseguendo il file \texttt{.run} otteniamo che il numero minimo di turni che serve per sconfiggere il boss è 20. E ad ogni turno è stato possibile sfruttare il boost dato dal riposo dei maghi.
 \section{Terzo scenario e conclusioni}
 \subsection{File .dat}
-Per il terzo scenario, il team è composto da 3 cavalieri. In questo modo non possiamo sfruttare il boost dato dai maghi, ma possiamo attaccare con 2 mani. Questo dovrebbe garantire un quantitativo maggiore di danni e di conseguenza un numero minore di turni.
+Per il terzo scenario, il team è composto da 3 cavalieri. In questo caso non sarà possibile sfruttare il boost dato dai maghi, tuttavia potremmo attaccare con 2 mani. Questo dovrebbe garantire un quantitativo maggiore di danni e di conseguenza un numero minore di turni.
 \begin{lstlisting}[language=haskell, frame=single, captionpos=b, keywordstyle=\color{purple}]
 set K := k1,k2,k3;
 set W := ;
 \end{lstlisting}
 \subsection{Risultati}
-In questo scenario, il numero minimo di turni necessari per sconfiggere il boss è 15. Questo risultato evidenzia come la composizione del team influenzi significativamente la strategia e l'efficacia in battaglia. Sebbene non sia possibile sfruttare il boost fornito dai maghi, il danno elevato inflitto dai cavalieri, specialmente utilizzando l'attacco a due mani, si dimostra determinante. Di conseguenza, questa strategia risulta più vantaggiosa rispetto a quelle che includono i maghi. Tuttavia, ciò suggerisce che potrebbe essere necessario bilanciare meglio le statistiche dei cavalieri per rendere la scelta dei maghi più competitiva e strategicamente valida.
+In questo scenario, il numero minimo di turni necessari per sconfiggere il boss è 15. Questo risultato evidenzia come la composizione del team influenzi significativamente la strategia. Sebbene non sia possibile sfruttare il boost fornito dai maghi, il danno elevato inflitto dai cavalieri, specialmente utilizzando l'attacco a due mani, si dimostra determinante. Di conseguenza, questa strategia risulta più vantaggiosa rispetto a quelle che includono i maghi. Tuttavia, ciò suggerisce che potrebbe essere necessario bilanciare meglio le statistiche dei cavalieri per rendere la scelta dei maghi più competitiva e strategicamente valida.
 \section{Conclusioni}
 L'obiettivo del progetto era quello di sviluppare un modello matematico per ottimizzare la composizione del team in un gioco di ruolo, al fine di dimostrare come la Ricerca Operativa possa essere utilizzata a vantaggio dei programmatori per risolvere problemi complessi come il bilanciamento delle statistiche dei personaggi dei videogiochi.
 \end{document}
