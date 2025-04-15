@@ -11,7 +11,7 @@ param Smax;
 param Mmax;
 param Smin;
 param Mmin;
-param BigM;
+param BigM := 100;
 
 var St{T} >= 0;
 var Mt{T} >= 0;
@@ -30,16 +30,16 @@ minimize TurniMinimi:
     sum {t in T} t * u[t];
 
 subject to StaminaMin {t in T: t != last(T)}: 
-    St[next(t)] >= Smin;
+    St[t] >= Smin;
 
 subject to StaminaMax {t in T: t != last(T)}: 
-    St[next(t)] <= Smax;
+    St[t] <= Smax;
 
 subject to ManaMin {t in T: t != last(T)}: 
-    Mt[next(t)] >= Mmin;
+    Mt[t] >= Mmin;
 
 subject to ManaMax {t in T: t != last(T)}: 
-    Mt[next(t)] <= Mmax;
+    Mt[t] <= Mmax;
 
 subject to Attacco2mani{k in K, t in T}:
     y[k,t] <= x[k,t];

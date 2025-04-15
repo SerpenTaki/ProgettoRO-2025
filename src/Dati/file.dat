@@ -16,7 +16,6 @@ param Mmax := 100;
 param Smin := 0;
 param Mmin := 0;
 
-param BigM := 100;
 
 param St :=
 1 100;

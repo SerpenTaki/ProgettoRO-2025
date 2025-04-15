@@ -343,9 +343,9 @@ INPUT /usr/local/texlive/2024/texmf-dist/fonts/tfm/adobe/helvetic/phvr8r.tfm
 INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/listings/lstlang1.sty
 INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/listings/lstlang1.sty
 INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/listings/lstlang1.sty
-INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/listings/lstmisc.sty
-INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/listings/lstmisc.sty
-INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/listings/lstmisc.sty
+INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/listings/lstlang2.sty
+INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/listings/lstlang2.sty
+INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/listings/lstlang2.sty
 INPUT /usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmtt10.tfm
 INPUT Relazione.aux
 INPUT /usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.10.25)  15 APR 2025 15:46
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.10.25)  15 APR 2025 16:06
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -715,8 +715,8 @@ Underfull \hbox (badness 10000) in alignment at lines 198--202
 
 [4] (/usr/local/texlive/2024/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2024/02/21 1.10 listings language file
-) (/usr/local/texlive/2024/texmf-dist/tex/latex/listings/lstmisc.sty
-File: lstmisc.sty 2024/02/21 1.10 (Carsten Heinz)
+) (/usr/local/texlive/2024/texmf-dist/tex/latex/listings/lstlang2.sty
+File: lstlang2.sty 2024/02/21 1.10 listings language file
 )
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 209.
  [5] [6] [7] (./Relazione.aux)
@@ -726,18 +726,18 @@ L3 programming layer <2024-02-20>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 24924 strings out of 474116
- 454815 string characters out of 5743681
- 2420187 words of memory out of 5000000
- 46746 multiletter control sequences out of 15000+600000
+ 25301 strings out of 474116
+ 459452 string characters out of 5743681
+ 2400187 words of memory out of 5000000
+ 47112 multiletter control sequences out of 15000+600000
  577130 words of font info for 86 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 84i,11n,93p,547b,2103s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 84i,11n,93p,547b,2536s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb>
-Output written on Relazione.pdf (8 pages, 572919 bytes).
+Output written on Relazione.pdf (8 pages, 574358 bytes).
 PDF statistics:
- 331 PDF objects out of 1000 (max. 8388607)
- 282 compressed objects within 3 object streams
- 121 named destinations out of 1000 (max. 500000)
+ 342 PDF objects out of 1000 (max. 8388607)
+ 293 compressed objects within 3 object streams
+ 131 named destinations out of 1000 (max. 500000)
  162 words of extra memory for PDF output out of 10000 (max. 10000000)
 

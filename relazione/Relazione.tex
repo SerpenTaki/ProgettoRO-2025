@@ -142,7 +142,7 @@
 La stamina e il mana sono valori che si aggiornano in base al consumo (\textit{durante la fase di attacco}) o alla ricarica (\textit{durante la fase di riposo}).\\
     \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} ll}
         \\
-        $S_{t+1} \geq S_{min}$ \hspace{1cm} $S_{t+1} \leq S_{max}$ \hspace{1cm} $M_{t+1} \geq M_{min}$ \hspace{1cm} $M_{t+1} \leq M_{max}$  & $\forall t$ \\
+        $S_{t} \geq S_{min}$ \hspace{1cm} $S_{t} \leq S_{max}$ \hspace{1cm} $M_{t} \geq M_{min}$ \hspace{1cm} $M_{t} \leq M_{max}$  & $\forall t$ \\
         \\
         $y_{k,t} \leq x_{k,t}$ & $\forall k,t$ \\
         & \\
@@ -206,7 +206,7 @@ La stamina e il mana sono valori che si aggiornano in base al consumo (\textit{d
     \newpage
     \section{Implementazione}
     \subsection{File .mod}
-\begin{lstlisting}[language=C, frame=single, caption={Test Cases}, captionpos=b]  
+\begin{lstlisting}[language=haskell, frame=single, caption={Modello in Ampl}, captionpos=b, keywordstyle=\color{purple}]  
 set T ordered;
 set K; 
 set W;
@@ -220,7 +220,7 @@ param Smax;
 param Mmax;
 param Smin;
 param Mmin;
-param BigM;
+param BigM := 100;
 
 var St{T} >= 0;
 var Mt{T} >= 0;
@@ -239,16 +239,16 @@ minimize TurniMinimi:
     sum {t in T} t * u[t];
 
 subject to StaminaMin {t in T: t != last(T)}: 
-    St[next(t)] >= Smin;
+    St[t] >= Smin;
 
 subject to StaminaMax {t in T: t != last(T)}: 
-    St[next(t)] <= Smax;
+    St[t] <= Smax;
 
 subject to ManaMin {t in T: t != last(T)}: 
-    Mt[next(t)] >= Mmin;
+    Mt[t] >= Mmin;
 
 subject to ManaMax {t in T: t != last(T)}: 
-    Mt[next(t)] <= Mmax;
+    Mt[t] <= Mmax;
 
 subject to Attacco2mani{k in K, t in T}:
     y[k,t] <= x[k,t];
@@ -289,18 +289,31 @@ subject to BoostCondition {t in T: ord(t) > 2}:
 subject to UnoRiposaPerTurno {t in T}:
     sum {w in W} (1 - z[w,t]) <= 1;
 
+
+
 subject to DannoPerTurno {t in T}:
-    DPT[t] = sum{k in K} DK * (x[k,t] + y[k,t] + 0.2 * Boost[t]) +
-             sum{w in W} z[w,t] * DW;
+    DPT[t] = sum{k in K} DK * (x[k,t] + y[k,t] + 0.2 * Boost[t]) + sum{w in W} z[w,t] * DW;
 
 subject to BossSconfitto {t in T}:
     sum{tt in T: ord(tt) <= ord(t)} DPT[tt] >= PVBoss * u[t];
 
 subject to SoloUnTurno:
     sum{t in T} u[t] = 1;
-\end{lstlisting} 
+\end{lstlisting}
 
-    \subsection{File .run}
+\subsection{File .run}
+\begin{lstlisting}[language=haskell, frame=single, caption={File di esecuzione}, captionpos=b, keywordstyle=\color{purple}]  
+reset;
+model file.mod;
+data Dati/file.dat; # cambiare il nome del file.dat per selezionare lo scenario
+option solver gurobi;
+solve;
+    
+display TurniMinimi; 
+display u, DPT, St, Mt;
+\end{lstlisting}
+
+
     \section{Primo scenario}
     \subsection{File .dat}
     \subsection{Risultati}

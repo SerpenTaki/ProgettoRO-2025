@@ -1,6 +1,6 @@
 reset;
 model file.mod;
-data file.dat;
+data Dati/file.dat;
 option solver gurobi;
 solve;
 
