@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1744725963.25964 "/Users/serpentaki/Documents/ProgettoRO-2025/relazione/Relazione.tex" "Relazione.pdf" "Relazione" 1744725964.50832 0
-  "/Users/serpentaki/Documents/ProgettoRO-2025/relazione/Relazione.tex" 1744725963.05492 12206 8df729111c9e3b061def28b307badc47 ""
+["pdflatex"] 1744730854.17235 "/Users/serpentaki/Documents/ProgettoRO-2025/relazione/Relazione.tex" "Relazione.pdf" "Relazione" 1744730855.4381 0
+  "/Users/serpentaki/Documents/ProgettoRO-2025/relazione/Relazione.tex" 1744730853.98443 13882 21eb15fd99a795bd990cdf68248fc0b3 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2024/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/adobe/helvetic/phvb7t.tfm" 1136768653 2240 eb56c13537f4d8a0bd3fafc25572b1bd ""
@@ -37,6 +37,7 @@
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb" 1248133631 36554 b67dc2cfa451409e100b3fcf5f506509 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb" 1248133631 30251 6afa5cb1d0204815a708a080681d4674 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb" 1248133631 36299 5f9df58c2139e7edcf37c8fca4bd384d ""
+  "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb" 1248133631 36741 fa121aac0049305630cf160b86157ee4 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb" 1248133631 36281 c355509802a035cadc5f15869451dcee ""
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb" 1248133631 35752 024fb6c41858982481f6968b5fc26508 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb" 1248133631 32722 d7379af29a190c3f453aba36302ff5a9 ""
@@ -199,8 +200,8 @@
   "/usr/local/texlive/2024/texmf-var/web2c/pdftex/pdflatex.fmt" 1729859394 8221429 31a6996b4a0e1b77a39728a1cd6025a2 ""
   "/usr/local/texlive/2024/texmf.cnf" 1710266656 577 e590dabc9e28c5b61546e15f63eebcdf ""
   "Immagini/Logo_Università_Padova.png" 1739100496.44643 449149 bdd99a7c01d0a0c995c89e8c6ab59eaa ""
-  "Relazione.aux" 1744725964.40858 6270 222055510940836d039d852b24deefe5 "pdflatex"
-  "Relazione.tex" 1744725963.05492 12206 8df729111c9e3b061def28b307badc47 ""
+  "Relazione.aux" 1744730855.35172 7830 5e8e7ee5725bdad493f7d4f35aeac3b8 "pdflatex"
+  "Relazione.tex" 1744730853.98443 13882 21eb15fd99a795bd990cdf68248fc0b3 ""
   (generated)
   "Relazione.aux"
   "Relazione.log"

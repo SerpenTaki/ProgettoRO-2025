@@ -1,0 +1,26 @@
+set T := 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20;
+# Lo scenario 2 usa 1 cavaliere e 2 maghi
+
+set K := k1;
+set W := w1,w2;
+
+param PVBoss := 1200;
+
+param DK := 30;
+param DW := 25;
+
+param SKC := 20;
+param MWC := 15;
+
+param Smax := 100;
+param Mmax := 100;
+
+param Smin := 0;
+param Mmin := 0;
+
+
+var St :=
+1 100;
+
+var Mt :=
+1 100;

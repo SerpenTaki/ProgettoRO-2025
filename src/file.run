@@ -1,8 +1,8 @@
 reset;
 model file.mod;
-data Dati/file.dat;
+data Dati/scenario1.dat;
 option solver gurobi;
 solve;
 
 display TurniMinimi; 
-display u, DPT, St, Mt; #y, x, z, Boost; #solo se si vogliono vedere le caratteristiche per ogni personaggio
+display u, DPT, St, Mt, y, Boost; #y, x, z, Boost; #solo se si vogliono vedere le caratteristiche per ogni personaggio

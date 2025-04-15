@@ -90,7 +90,7 @@
     \section{Modello}
     \subsection{Insiemi}
     \begin{itemize}
-        \item $T$: Insieme dei turni possibili, con $t \in T \subseteq \mathbb{Z}^+$
+        \item $T$: Insieme dei turni possibili, con $t \in T \subseteq \mathbb{Z}^+$ e nell'implementazione $T = \{1,2,3,...,20\}$
         \item $K$: Insieme dei cavalieri, con $k \in K \subseteq \mathbb{Z}^+$ e $k = \{ 0,1,2,3 \}$
         \item $W$: Insieme dei maghi, con $w \in W \subseteq \mathbb{Z}^+$ e $w = 3- k$
     \end{itemize}
@@ -190,7 +190,7 @@ La stamina e il mana sono valori che si aggiornano in base al consumo (\textit{d
     Solo un turno può essere quello in cui il boss viene sconfitto \\
     \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} ll}
         \\
-        $\sum_{t \in T} u_t = 1$  & $\forall$\\
+        $\sum_{t \in T} u_t = 1$  & $\forall t$\\
         \\
     \end{tabular*}
 
@@ -201,11 +201,21 @@ La stamina e il mana sono valori che si aggiornano in base al consumo (\textit{d
          $S_t, M_t, DPT_t \geq 0, \text{ con  } S_t, M_t, DPT_t \in \mathbb{R}^+$\\
     \end{tabular*}
     
-
-
-    \newpage
     \section{Implementazione}
-    \subsection{File .mod}
+    Presento di seguito l'implementazione del modello in AMPL e il relativo file di esecuzione.\\
+    \subsection{File .run}
+    \begin{lstlisting}[language=haskell, frame=single, caption={File di esecuzione}, captionpos=b, keywordstyle=\color{purple}]  
+reset;
+model file.mod;
+data Dati/file.dat; # cambiare il nome del "file.dat" per selezionare lo scenario
+option solver gurobi;
+solve;
+        
+display TurniMinimi; 
+display u, DPT, St, Mt;
+    \end{lstlisting}
+\newpage
+\subsection{File .mod}
 \begin{lstlisting}[language=haskell, frame=single, caption={Modello in Ampl}, captionpos=b, keywordstyle=\color{purple}]  
 set T ordered;
 set K; 
@@ -289,8 +299,6 @@ subject to BoostCondition {t in T: ord(t) > 2}:
 subject to UnoRiposaPerTurno {t in T}:
     sum {w in W} (1 - z[w,t]) <= 1;
 
-
-
 subject to DannoPerTurno {t in T}:
     DPT[t] = sum{k in K} DK * (x[k,t] + y[k,t] + 0.2 * Boost[t]) + sum{w in W} z[w,t] * DW;
 
@@ -301,23 +309,52 @@ subject to SoloUnTurno:
     sum{t in T} u[t] = 1;
 \end{lstlisting}
 
-\subsection{File .run}
-\begin{lstlisting}[language=haskell, frame=single, caption={File di esecuzione}, captionpos=b, keywordstyle=\color{purple}]  
-reset;
-model file.mod;
-data Dati/file.dat; # cambiare il nome del file.dat per selezionare lo scenario
-option solver gurobi;
-solve;
-    
-display TurniMinimi; 
-display u, DPT, St, Mt;
+\section{Primo scenario e introduzione}
+Negli scenari presentati di seguito, il file \texttt{.dat} è stato modificato per cambiare i parametri del problema. Ipotizzando la scelta che un giocatore può fare per comporre il proprio team.
+Nel primo scenario, il team è composto da 2 cavalieri ed un mago. Il boss presenta 1200 Punti vita, e le statistiche di attacco e consumo sono le seguenti:
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|c|c|}
+        \hline
+        \textbf{Parametro} & \textbf{Valore} \\
+        \hline
+        $DK$ & 30 \\
+        $DW$ & 25 \\
+        $SKC$ & 20 \\
+        $MWC$ & 15 \\
+        \hline
+    \end{tabular}
+\end{table}\\
+Per tutti gli scenari queste statistiche sono state mantenute costanti. In modo tale che ci si possa concentrare sulla differenza della composizione del \textit{party}\\
+\subsection{File .dat}
+\begin{lstlisting}[language=haskell, frame=single, captionpos=b, keywordstyle=\color{purple}]  
+set T := 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20;
+set K := k1,k2; 
+set W := w1;
+param PVBoss := 1200;
+param DK := 30;
+param DW := 25;
+param SKC := 20;
+param MWC := 15;    
+param Smax := 100;
+param Mmax := 100;
+param Smin := 0;
+param Mmin := 0;  
+var St :=
+1 100;
+var Mt :=
+1 100;
 \end{lstlisting}
+\subsection{Risultati}
+L’esecuzione del file \texttt{.run} mostra che il numero minimo di turni per sconfiggere il boss è 16. In particolare possiamo notare come appena disponibile il modello predilige l'attacco a 2 mani da parte del cavaliere\\
+\section{Secondo scenario}
+\subsection{File .dat}
+\subsection{Risultati}
 
+\section{Terzo scenario e conclusioni}
+\subsection{File .dat}
+\subsection{Risultati}
 
-    \section{Primo scenario}
-    \subsection{File .dat}
-    \subsection{Risultati}
-    \section{Secondo scenario}
-    \subsection{File .dat}
-    \subsection{Risultati}
+\section{Conclusioni}
+
 \end{document}
