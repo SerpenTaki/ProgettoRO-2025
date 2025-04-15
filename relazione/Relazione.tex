@@ -175,7 +175,7 @@ La stamina e il mana sono valori che si aggiornano in base al consumo (\textit{d
     \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} ll}\\
         $Boost_t \leq \sum_{w \in W}((1-z_{w,t-1})+(1-z_{w,t-2}))$ & $\forall t$ \\
         & \\
-        $z_{m,t-1} + z_{m,t-2} \leq 1$ & $\forall t$\\
+        $z_{w,t-1} + z_{w,t-2} \leq 1$ & $\forall t,w$\\
        & \\
         $DPT_t = (\sum_{k \in K} DK \cdot (x_{k,t} + y_{k,t} + (0.2 Boost_{t}))) + \sum_{w \in W} z_{w,t} \cdot DW$ & $\forall t$\\
         & \\

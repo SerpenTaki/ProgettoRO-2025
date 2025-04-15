@@ -11,10 +11,10 @@ param Smax;
 param Mmax;
 param Smin;
 param Mmin;
-param BigM := 100;
+param BigM := Smax;
 
-var St{T} >= 0;
-var Mt{T} >= 0;
+var Stamina{T} >= 0;
+var Mana{T} >= 0;
 var DPT{T} >= 0;
 
 var x{k in K, t in T} binary;  
@@ -30,59 +30,61 @@ minimize TurniMinimi:
     sum {t in T} t * u[t];
 
 subject to StaminaMin {t in T: t != last(T)}: 
-    St[t] >= Smin;
+    Stamina[t] >= Smin;
 
 subject to StaminaMax {t in T: t != last(T)}: 
-    St[t] <= Smax;
+    Stamina[t] <= Smax;
 
 subject to ManaMin {t in T: t != last(T)}: 
-    Mt[t] >= Mmin;
+    Mana[t] >= Mmin;
 
 subject to ManaMax {t in T: t != last(T)}: 
-    Mt[t] <= Mmax;
+    Mana[t] <= Mmax;
 
 subject to Attacco2mani{k in K, t in T}:
     y[k,t] <= x[k,t];
 
 subject to ConsumoStamina{t in T}:
-    sum{k in K} SKC * (x[k,t] + 0.75 * y[k,t]) <= St[t];
+    sum{k in K} SKC * (x[k,t] + (0.75 * y[k,t])) <= Stamina[t];
 
 subject to ConsumoMana{t in T}:
-    sum{w in W} z[w,t] * MWC <= Mt[t];
+    sum{w in W} z[w,t] * MWC <= Mana[t];
 
 subject to AggiornaStamina{t in T: ord(t) < card(T)}:
-    St[t+1] = St[t] - sum{k in K} SKC * (x[k,t] + 0.75 * y[k,t]) + 0.3 * sum{k in K} r[k,t];
+    Stamina[t+1] = Stamina[t] - sum{k in K} SKC * (x[k,t] + (0.75 * y[k,t])) + 0.3 * sum{k in K} r[k,t];
 
 subject to AggiornaMana{t in T: ord(t) < card(T)}:
-    Mt[t+1] = Mt[t] - sum{w in W} z[w,t] * MWC + 0.2 * sum{w in W} gamma[w,t];
+    Mana[t+1] = Mana[t] - sum{w in W} z[w,t] * MWC + 0.2 * sum{w in W} gamma[w,t];
 
 subject to RiposoCavaliere1 {k in K, t in T}:
     r[k,t] <= Smax * (1 - x[k,t]);
 
 subject to RiposoCavaliere2 {k in K, t in T}:
-    r[k,t] >= (Smax - St[t]) - BigM * x[k,t];
+    r[k,t] >= (Smax - Stamina[t]) - BigM * x[k,t];
 
 subject to RiposoCavaliere3 {k in K, t in T}:
-    r[k,t] <= Smax - St[t];
+    r[k,t] <= Smax - Stamina[t];
 
 subject to RiposoMago1 {w in W, t in T}:
     gamma[w,t] <= Mmax * (1 - z[w,t]);
 
 subject to RiposoMago2 {w in W, t in T}:
-    gamma[w,t] >= (Mmax - Mt[t]) - BigM * z[w,t];
+    gamma[w,t] >= (Mmax - Mana[t]) - BigM * z[w,t];
 
 subject to RiposoMago3 {w in W, t in T}:
-    gamma[w,t] <= Mmax - Mt[t];
+    gamma[w,t] <= Mmax - Mana[t];
 
 subject to BoostCondition {t in T: ord(t) > 2}:
     Boost[t] <= sum {w in W} (1 - z[w,t-1] + 1 - z[w,t-2]);
+    
+subject to BoostCondition2 {t in T: ord(t) > 2}:
+	sum{w in W}(z[w,t-1]+z[w,t-2]) <= 1;
 
 subject to UnoRiposaPerTurno {t in T}:
     sum {w in W} (1 - z[w,t]) <= 1;
 
 subject to DannoPerTurno {t in T}:
-    DPT[t] = sum{k in K} DK * (x[k,t] + y[k,t] + 0.2 * Boost[t]) +
-             sum{w in W} z[w,t] * DW;
+    DPT[t] = sum{k in K} DK * (x[k,t] + y[k,t] + (0.2 * Boost[t])) + sum{w in W} z[w,t] * DW;
 
 subject to BossSconfitto {t in T}:
     sum{tt in T: ord(tt) <= ord(t)} DPT[tt] >= PVBoss * u[t];

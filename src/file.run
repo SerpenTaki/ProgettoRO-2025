@@ -1,8 +1,8 @@
 reset;
 model file.mod;
-data Dati/scenario3.dat; #Nella cartella Dati abbiamo tutti gli scenari disponibili
+data Dati/scenario1.dat; #Nella cartella Dati abbiamo tutti gli scenari disponibili
 option solver gurobi;
 solve;
 
 display TurniMinimi; 
-display u, DPT, St, Mt; 
+display u, DPT, Stamina, Mana; 
