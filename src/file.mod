@@ -1,6 +1,6 @@
-set T ordered;  # Turni
-set K;  # Cavalieri
-set W;  # Maghi
+set T ordered;
+set K; 
+set W;
 
 param PVBoss;
 param DK;
@@ -13,35 +13,32 @@ param Smin;
 param Mmin;
 param BigM;
 
-# Variabili decisionali
 var St{T} >= 0;
 var Mt{T} >= 0;
 var DPT{T} >= 0;
 
-var x{k in K, t in T} binary;  # Cavaliere attacca
-var y{k in K, t in T} binary;  # Cavaliere usa 2 mani
-var z{w in W, t in T} binary;  # Mago attacca
+var x{k in K, t in T} binary;  
+var y{k in K, t in T} binary;  
+var z{w in W, t in T} binary;  
 var Boost{T} binary;
 var u{T} binary;
 
-var r{k in K, t in T} >= 0;    # Riposo cavaliere
-var gamma{w in W, t in T} >= 0; # Riposo mago
+var r{k in K, t in T} >= 0;    
+var gamma{w in W, t in T} >= 0; 
 
-# Funzione obiettivo: minimizzare il primo turno in cui il boss è sconfitto
 minimize TurniMinimi:
     sum {t in T} t * u[t];
 
-# Vincoli stamina e mana
-subject to StaminaMin {t in T: t != last(T)}: #fix
+subject to StaminaMin {t in T: t != last(T)}: 
     St[next(t)] >= Smin;
 
-subject to StaminaMax {t in T: t != last(T)}: #fix
+subject to StaminaMax {t in T: t != last(T)}: 
     St[next(t)] <= Smax;
 
-subject to ManaMin {t in T: t != last(T)}: #fix
+subject to ManaMin {t in T: t != last(T)}: 
     Mt[next(t)] >= Mmin;
 
-subject to ManaMax {t in T: t != last(T)}: #fix
+subject to ManaMax {t in T: t != last(T)}: 
     Mt[next(t)] <= Mmax;
 
 subject to Attacco2mani{k in K, t in T}:
@@ -59,7 +56,6 @@ subject to AggiornaStamina{t in T: ord(t) < card(T)}:
 subject to AggiornaMana{t in T: ord(t) < card(T)}:
     Mt[t+1] = Mt[t] - sum{w in W} z[w,t] * MWC + 0.2 * sum{w in W} gamma[w,t];
 
-# Linearizzazione riposo
 subject to RiposoCavaliere1 {k in K, t in T}:
     r[k,t] <= Smax * (1 - x[k,t]);
 
@@ -78,23 +74,18 @@ subject to RiposoMago2 {w in W, t in T}:
 subject to RiposoMago3 {w in W, t in T}:
     gamma[w,t] <= Mmax - Mt[t];
 
-# Boost se un mago si è riposato in uno dei due turni precedenti
 subject to BoostCondition {t in T: ord(t) > 2}:
     Boost[t] <= sum {w in W} (1 - z[w,t-1] + 1 - z[w,t-2]);
 
-# Un solo mago può riposare per turno
 subject to UnoRiposaPerTurno {t in T}:
     sum {w in W} (1 - z[w,t]) <= 1;
 
-# Danno per turno
 subject to DannoPerTurno {t in T}:
     DPT[t] = sum{k in K} DK * (x[k,t] + y[k,t] + 0.2 * Boost[t]) +
              sum{w in W} z[w,t] * DW;
 
-# Condizione di sconfitta del boss
 subject to BossSconfitto {t in T}:
     sum{tt in T: ord(tt) <= ord(t)} DPT[tt] >= PVBoss * u[t];
 
-# Solo un turno può essere quello in cui il boss viene sconfitto
 subject to SoloUnTurno:
-    sum{t in T} u[t] = 1; #da aggiungere al file.tex
+    sum{t in T} u[t] = 1; 

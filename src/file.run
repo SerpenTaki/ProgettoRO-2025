@@ -4,5 +4,5 @@ data file.dat;
 option solver gurobi;
 solve;
 
-display TurniMinimi;  # Mostra il valore della funzione obiettivo
-display u, DPT, St, Mt, PVBoss; #y, x, z, Boost;
+display TurniMinimi; 
+display u, DPT, St, Mt; #y, x, z, Boost; #solo se si vogliono vedere le caratteristiche per ogni personaggio
