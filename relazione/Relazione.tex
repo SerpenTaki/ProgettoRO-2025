@@ -70,9 +70,11 @@
     \fontsize{10}{12}\selectfont
     % Pagina introduzione
     \newpage
+    \tableofcontents
+    \newpage
     \section{Introduzione}
     \subsection{Abstract}
-    Si presenta un problema di ottimizzazione strategica nei giochi RPG dove il giocatore deve comporre un team di personaggi per minimizzare il numero di turni impiegati per uccidere un eventuale boss.\\
+    Si presenta un problema di ottimizzazione strategica nei giochi RPG dove il giocatore deve comporre un team di personaggi per minimizzare il numero di turni impiegati per uccidere un eventuale boss.
     \subsection{Descrizione del problema}
     Per un gioco di ruolo il giocatore può scegliere di comporre un team di personaggi.
     Ogni \textit{party}\footnote{Insieme di cavalieri e maghi che compongono il team.} è formato da 3 personaggi scelti tra Cavalieri e Maghi. Questo significa che un team può essere formato da 3 Cavalieri, 3 Maghi o da un misto di entrambi. 
@@ -202,7 +204,7 @@ La stamina e il mana sono valori che si aggiornano in base al consumo (\textit{d
     \end{tabular*}
     
     \section{Implementazione}
-    Presento di seguito l'implementazione del modello in AMPL e il relativo file di esecuzione.\\
+    Presento di seguito l'implementazione del modello in AMPL e il relativo file di esecuzione.
     \subsection{File .run}
     \begin{lstlisting}[language=haskell, frame=single, caption={File di esecuzione}, captionpos=b, keywordstyle=\color{purple}]  
 reset;
@@ -318,14 +320,14 @@ Nel primo scenario, il team è composto da 2 cavalieri ed un mago. Il boss prese
         \hline
         \textbf{Parametro} & \textbf{Valore} \\
         \hline
-        $DK$ & 30 \\
-        $DW$ & 25 \\
-        $SKC$ & 20 \\
-        $MWC$ & 15 \\
+        $DK$ & $30$ \\
+        $DW$ & $25$ \\
+        $SKC$ & $20$ \\
+        $MWC$ & $15$ \\
         \hline
     \end{tabular}
 \end{table}\\
-Per tutti gli scenari queste statistiche sono state mantenute costanti. In modo tale che ci si possa concentrare sulla differenza della composizione del \textit{party}\\
+Per tutti gli scenari queste statistiche sono state mantenute costanti. In modo tale che ci si possa concentrare sulla differenza della composizione del \textit{party}
 \subsection{File .dat}
 \begin{lstlisting}[language=haskell, frame=single, captionpos=b, keywordstyle=\color{purple}]  
 set T := 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20;
@@ -346,15 +348,57 @@ var Mt :=
 1 100;
 \end{lstlisting}
 \subsection{Risultati}
-L’esecuzione del file \texttt{.run} mostra che il numero minimo di turni per sconfiggere il boss è 16. In particolare possiamo notare come appena disponibile il modello predilige l'attacco a 2 mani da parte del cavaliere\\
+L’esecuzione del file \texttt{.run} mostra che il numero minimo di turni per sconfiggere il boss è 16. In particolare possiamo notare come appena disponibile il modello predilige l'attacco a 2 mani da parte del cavaliere
+\begin{lstlisting}[language=haskell, frame=single, captionpos=b, keywordstyle=\color{purple}]  
+ampl: include file.run;
+Gurobi 11.0.3:                Gurobi 11.0.3: optimal solution; objective 16
+64518 simplex iterations
+1359 branching nodes
+TurniMinimi = 16
+
+:    u   DPT      St          Mt       :=
+1    0   157   100         100
+2    0    37    30          85
+3    0   145    72          70
+4    0    25     2          55
+5    0   115    60.8        40
+6    0     0     5.8        25
+7    0   127    62.32       40
+8    0    12     7.32       25
+9    0    67    62.928      40
+10   0    97    54.0496     25
+11   0     0    32.8347     10
+12   0   157    73.1339     28
+13   0    12     3.13389    13
+14   0    97    61.2536     30.4
+15   0    37    37.8775     15.4
+16   1   120    75.151       0.4
+17   0     0     5.151      20.32
+18   0     0    62.0604     36.256
+19   0     0    84.8242     49.0048
+20   0     0    93.9297     59.2038
+;
+\end{lstlisting}
+\newpage
 \section{Secondo scenario}
 \subsection{File .dat}
+Per il secondo scenario, il team è composto da 1 cavaliere e 2 maghi. In questo modo dovremmo poter sfruttare al meglio il boost dato dal riposo da parte dei maghi.
+\begin{lstlisting}[language=haskell, frame=single, captionpos=b, keywordstyle=\color{purple}]  
+set K := k1;
+set W := w1,w2;
+\end{lstlisting}
+Come precedentemente detto le statistiche del boss e del \textit{party} sono rimaste invariate. Come unica differenza abbiamo quindi la composizione del team di personaggi.
 \subsection{Risultati}
-
+Eseguendo il file \texttt{.run} otteniamo che il numero minimo di turni che serve per sconfiggere il boss è 20. E ad ogni turno è stato possibile sfruttare il boost dato dal riposo dei maghi.
 \section{Terzo scenario e conclusioni}
 \subsection{File .dat}
+Per il terzo scenario, il team è composto da 3 cavalieri. In questo modo non possiamo sfruttare il boost dato dai maghi, ma possiamo attaccare con 2 mani. Questo dovrebbe garantire un quantitativo maggiore di danni e di conseguenza un numero minore di turni.
+\begin{lstlisting}[language=haskell, frame=single, captionpos=b, keywordstyle=\color{purple}]
+set K := k1,k2,k3;
+set W := ;
+\end{lstlisting}
 \subsection{Risultati}
-
+In questo scenario, il numero minimo di turni necessari per sconfiggere il boss è 15. Questo risultato evidenzia come la composizione del team influenzi significativamente la strategia e l'efficacia in battaglia. Sebbene non sia possibile sfruttare il boost fornito dai maghi, il danno elevato inflitto dai cavalieri, specialmente utilizzando l'attacco a due mani, si dimostra determinante. Di conseguenza, questa strategia risulta più vantaggiosa rispetto a quelle che includono i maghi. Tuttavia, ciò suggerisce che potrebbe essere necessario bilanciare meglio le statistiche dei cavalieri per rendere la scelta dei maghi più competitiva e strategicamente valida.
 \section{Conclusioni}
-
+L'obiettivo del progetto era quello di sviluppare un modello matematico per ottimizzare la composizione del team in un gioco di ruolo, al fine di dimostrare come la Ricerca Operativa possa essere utilizzata a vantaggio dei programmatori per risolvere problemi complessi come il bilanciamento delle statistiche dei personaggi dei videogiochi.
 \end{document}

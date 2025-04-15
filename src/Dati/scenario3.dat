@@ -4,10 +4,10 @@ set T := 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20;
 set K := k1,k2,k3;
 set W := ;
 
-param PVBoss := 1200;
+param PVBoss := 100;
 
 param DK := 30;
-param DW := 25;
+param DW := 100;
 
 param SKC := 20;
 param MWC := 15;
@@ -19,8 +19,8 @@ param Smin := 0;
 param Mmin := 0;
 
 
-param St :=
+var St :=
 1 100;
 
-param Mt :=
+var Mt :=
 1 100;
